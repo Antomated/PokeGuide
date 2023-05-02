@@ -13,6 +13,7 @@ target 'PokeGuide' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Hero'
+  pod 'Moya/RxSwift'
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|

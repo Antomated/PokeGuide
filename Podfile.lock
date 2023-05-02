@@ -1,10 +1,16 @@
 PODS:
+  - Alamofire (5.6.4)
   - Hero (1.6.2)
-  - Realm (10.38.0):
-    - Realm/Headers (= 10.38.0)
-  - Realm/Headers (10.38.0)
-  - RealmSwift (10.38.0):
-    - Realm (= 10.38.0)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Realm (10.38.2):
+    - Realm/Headers (= 10.38.2)
+  - Realm/Headers (10.38.2)
+  - RealmSwift (10.38.2):
+    - Realm (= 10.38.2)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -18,6 +24,7 @@ PODS:
 
 DEPENDENCIES:
   - Hero
+  - Moya/RxSwift
   - RealmSwift
   - RxCocoa
   - RxSwift
@@ -26,7 +33,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Hero
+    - Moya
     - Realm
     - RealmSwift
     - RxCocoa
@@ -36,15 +45,17 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   Hero: c69009dbc9e2f0472e081adc644dba05fcedae72
-  Realm: 5902885dd1d5e71b0b020830caab937ecdf5bf07
-  RealmSwift: 0fc037d6c32c7c4fc9362892380f380114ecdcf0
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Realm: 4132817bce88db8415114f49070ff844aa2f5600
+  RealmSwift: 4175fd7a42483a7951b2c2c79b9d291dfe3a5cf0
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
   SDWebImage: d47d81bea8a77187896b620dc79c3c528e8906b9
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
 
-PODFILE CHECKSUM: 040241edb82629440218a19e4405e712af6438a9
+PODFILE CHECKSUM: db794cc8565268480a9fcdc6e2a350e69e90aca6
 
 COCOAPODS: 1.12.1
