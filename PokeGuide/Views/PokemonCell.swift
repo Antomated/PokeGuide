@@ -20,6 +20,9 @@ final class PokemonCell: UICollectionViewCell {
     }
     private let nameLabel = UILabel().apply {
         $0.textColor = Constants.Colors.mainAccentColor.color
+        $0.numberOfLines = 0
+        $0.layer.contentsGravity = .bottom
+        $0.clipsToBounds = true
         $0.font = .boldTextCustomFont()
     }
     private let abilityLabel = UILabel().apply {
@@ -40,7 +43,6 @@ final class PokemonCell: UICollectionViewCell {
     private let imageViewWidthRatio = 2.5
     private let innerPadding = Constants.StyleDefaults.innerPadding
     private let compositeDisposable = CompositeDisposable()
-    private let disposeBag = DisposeBag()
 
     // MARK: - Init
 
@@ -73,18 +75,21 @@ final class PokemonCell: UICollectionViewCell {
 
     func configure(with viewModel: PokemonCellViewModel) {
         nameLabel.text = viewModel.name
+        let cellDisposeBag = DisposeBag()
+
         viewModel.imageUrl
             .subscribe(onNext: { [weak self] imageUrl in
                 guard let self, let imageUrl else { return }
                 self.imageView.sd_setImage(with: URL(string: imageUrl))
             })
-            .disposed(by: disposeBag)
+            .disposed(by: cellDisposeBag)
+
         viewModel.ability
             .subscribe(onNext: { [weak self] abilityName in
                 guard let self, let abilityName else { return }
                 self.abilityLabel.text = abilityName
             })
-            .disposed(by: disposeBag)
+            .disposed(by: cellDisposeBag)
     }
 
     // MARK: - UI Setup
@@ -109,14 +114,14 @@ final class PokemonCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(innerPadding)
-            make.trailing.equalTo(imageView.snp.leading).offset(innerPadding)
+            make.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
             make.bottom.equalTo(contentView.snp.centerY)
         }
 
         contentView.addSubview(abilityLabel)
         abilityLabel.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview().inset(innerPadding)
-            make.trailing.equalTo(imageView.snp.leading).offset(innerPadding)
+            make.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
             make.top.equalTo(contentView.snp.centerY)
         }
     }
