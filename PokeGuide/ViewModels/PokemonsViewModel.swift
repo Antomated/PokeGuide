@@ -34,7 +34,6 @@ final class PokemonsViewModel {
                 self.nextPageUrl = pokemonsList.next
                 self.fetchAndAppendDetailedPokemons(from: pokemonsList.results)
             }, onError: { [weak self] error in
-                print("DEBUG! error fetching initial pokemons \n\(error)")
                 self?.errorRelay.accept(error)
             })
             .disposed(by: disposeBag)
@@ -55,7 +54,6 @@ final class PokemonsViewModel {
             }, onError: { [weak self] error in
                 guard let self else { return }
                 self.isFetchingMoreData = false
-                print("DEBUG! error fetching using this url:\(String(describing: self.nextPageUrl)) \n\(error)")
                 self.errorRelay.accept(error)
             })
             .disposed(by: disposeBag)
@@ -73,7 +71,6 @@ final class PokemonsViewModel {
                 updatedDetailedPokemons.append(detailedPokemon)
                 self._detailedPokemons.accept(updatedDetailedPokemons)
             }, onError: { [weak self] error in
-                print("DEBUG! error fetching detailed pokemon \n\(error)")
                 self?.errorRelay.accept(error)
             })
             .disposed(by: disposeBag)

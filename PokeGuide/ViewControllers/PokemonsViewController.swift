@@ -58,8 +58,8 @@ final class PokemonsViewController: UIViewController {
 
     private func configureCollectionView() {
         view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        collectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
         }
         configureCollectionViewLayout()
         bindViewModelToCollectionView()

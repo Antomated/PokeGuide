@@ -4,8 +4,6 @@
 //
 //  Created by Beavean on 24.04.2023.
 //
-// TODO: remove prints
-// TODO: If to guard
 
 import SDWebImage
 import UIKit
@@ -19,7 +17,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         window?.rootViewController = setupNavigationController()
-        SDWebImageDownloader.shared.config.maxConcurrentDownloads = 5
         return true
     }
 

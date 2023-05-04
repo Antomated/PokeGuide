@@ -99,17 +99,17 @@ final class PokemonCell: UICollectionViewCell {
         }
 
         contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(innerPadding)
-            make.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
-            make.bottom.equalTo(contentView.snp.centerY)
+        nameLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(innerPadding)
+            $0.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
+            $0.bottom.equalTo(contentView.snp.centerY)
         }
 
         contentView.addSubview(abilityLabel)
-        abilityLabel.snp.makeConstraints { make in
-            make.leading.bottom.equalToSuperview().inset(innerPadding)
-            make.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
-            make.top.equalTo(contentView.snp.centerY)
+        abilityLabel.snp.makeConstraints {
+            $0.leading.bottom.equalToSuperview().inset(innerPadding)
+            $0.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
+            $0.top.equalTo(contentView.snp.centerY)
         }
     }
 }

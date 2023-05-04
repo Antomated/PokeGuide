@@ -21,24 +21,24 @@ extension PokemonAPI: TargetType {
         switch self {
         case .getPokemonsList:
             return URL(string: "https://pokeapi.co/api/v2/pokemon/?limit=\(Self.pokemonsListLimit)")!
-        case .getPokemon(let urlString), .loadNextPokemons(let urlString):
+        case let .getPokemon(urlString), let .loadNextPokemons(urlString):
             return URL(string: urlString)!
         }
     }
 
     var path: String {
-        return ""
+        ""
     }
 
     var method: Moya.Method {
-        return .get
+        .get
     }
 
     var task: Task {
-        return .requestPlain
+        .requestPlain
     }
 
     var headers: [String: String]? {
-        return nil
+        nil
     }
 }

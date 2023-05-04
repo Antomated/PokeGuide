@@ -15,10 +15,10 @@ enum APIError: Error {
     var errorMessage: String {
         switch self {
         case .unknownError:
-             return "Unknown error."
+            return "Unknown error."
         case .serverError:
             return "Server error."
-        case .customError(let message):
+        case let .customError(message):
             return message
         }
     }
