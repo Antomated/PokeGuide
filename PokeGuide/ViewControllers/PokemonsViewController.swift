@@ -5,8 +5,8 @@
 //  Created by Beavean on 24.04.2023.
 //
 
-import RxSwift
 import RxCocoa
+import RxSwift
 import SnapKit
 import UIKit
 
@@ -49,6 +49,7 @@ final class PokemonsViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,14 +73,13 @@ final class PokemonsViewController: UIViewController {
     }
 
     private func bindViewModelToCollectionView() {
-        viewModel.pokemons
-            .compactMap { $0?.results }
+        viewModel.detailedPokemons
+            .compactMap { $0 }
             .bind(to: collectionView.rx.items(cellIdentifier: PokemonCell.reuseIdentifier,
-                                              cellType: PokemonCell.self)) { [weak self] index, _, cell in
-                guard let self else { return }
-                cell.configure(with: self.viewModel.cellViewModels[index])
+                                              cellType: PokemonCell.self)) { _, item, cell in
+                cell.configure(with: item)
             }
-                                              .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
         viewModel.errorRelay
             .subscribe(onNext: { [weak self] error in
                 self?.showError(error)
@@ -100,13 +100,6 @@ final class PokemonsViewController: UIViewController {
                 self?.viewModel.loadMorePokemons()
             })
             .disposed(by: disposeBag)
-        viewModel.cellViewModels.forEach { cellViewModel in
-            cellViewModel.errorRelay
-                .subscribe(onNext: { [weak self] error in
-                    self?.showError(error)
-                })
-                .disposed(by: disposeBag)
-        }
     }
 
     private func setupFlowLayout() {

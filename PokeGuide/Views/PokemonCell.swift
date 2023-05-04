@@ -5,7 +5,6 @@
 //  Created by Beavean on 25.04.2023.
 //
 
-import RxSwift
 import SDWebImage
 import SnapKit
 import UIKit
@@ -18,6 +17,7 @@ final class PokemonCell: UICollectionViewCell {
         $0.clipsToBounds = true
         $0.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
     }
+
     private let nameLabel = UILabel().apply {
         $0.textColor = Constants.Colors.mainAccentColor.color
         $0.numberOfLines = 0
@@ -25,6 +25,7 @@ final class PokemonCell: UICollectionViewCell {
         $0.clipsToBounds = true
         $0.font = .boldTextCustomFont()
     }
+
     private let abilityLabel = UILabel().apply {
         $0.textColor = Constants.Colors.secondaryLabelColor.color
         $0.numberOfLines = 0
@@ -42,7 +43,6 @@ final class PokemonCell: UICollectionViewCell {
     private let shadowOffset = CGSize(width: 0, height: 2)
     private let imageViewWidthRatio = 2.5
     private let innerPadding = Constants.StyleDefaults.innerPadding
-    private let compositeDisposable = CompositeDisposable()
 
     // MARK: - Init
 
@@ -65,7 +65,6 @@ final class PokemonCell: UICollectionViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        compositeDisposable.dispose()
         imageView.image = Constants.Images.placeholder.image
         nameLabel.text = defaultNameLabelText
         abilityLabel.text = defaultAbilityLabelText
@@ -73,23 +72,11 @@ final class PokemonCell: UICollectionViewCell {
 
     // MARK: - Configuration
 
-    func configure(with viewModel: PokemonCellViewModel) {
-        nameLabel.text = viewModel.name
-        let cellDisposeBag = DisposeBag()
-
-        viewModel.imageUrl
-            .subscribe(onNext: { [weak self] imageUrl in
-                guard let self, let imageUrl else { return }
-                self.imageView.sd_setImage(with: URL(string: imageUrl))
-            })
-            .disposed(by: cellDisposeBag)
-
-        viewModel.ability
-            .subscribe(onNext: { [weak self] abilityName in
-                guard let self, let abilityName else { return }
-                self.abilityLabel.text = abilityName
-            })
-            .disposed(by: cellDisposeBag)
+    func configure(with pokemon: DetailedPokemon) {
+        nameLabel.text = pokemon.name
+        abilityLabel.text = pokemon.abilities.first?.ability.name
+        guard let imageUrl = pokemon.sprites?.frontDefault else { return }
+        imageView.sd_setImage(with: URL(string: imageUrl))
     }
 
     // MARK: - UI Setup
