@@ -1,10 +1,10 @@
 //
-//  Models.swift
+//  PokemonModels.swift
 //  PokeGuide
 //
 //  Created by Beavean on 26.04.2023.
 //
-// TODO: Remove unused models and split into separate files
+// TODO: Remove unused and split into separate files
 
 import Foundation
 

@@ -13,6 +13,7 @@ final class PokemonsViewModel {
     // MARK: - Properties
 
     private(set) var isFetchingMoreData = false
+    private(set) var isFetchingDetailedPokemons = BehaviorRelay<Bool>(value: false)
     private(set) var nextPageUrl: String?
     private let pokemonAPIManager: PokemonAPIManager
     private let disposeBag = DisposeBag()
@@ -60,11 +61,15 @@ final class PokemonsViewModel {
     }
 
     private func fetchAndAppendDetailedPokemons(from basicPokemons: [BasicPokemon]) {
+        isFetchingDetailedPokemons.accept(true)
         let observables = basicPokemons.map { basicPokemon -> Observable<DetailedPokemon> in
             self.pokemonAPIManager.fetchData(from: .getPokemon(fromUrl: basicPokemon.url),
                                              ofType: DetailedPokemon.self)
         }
         Observable.concat(observables)
+            .do(afterCompleted: { [weak self] in
+                self?.isFetchingDetailedPokemons.accept(false)
+            })
             .subscribe(onNext: { [weak self] detailedPokemon in
                 guard let self else { return }
                 var updatedDetailedPokemons = self._detailedPokemons.value

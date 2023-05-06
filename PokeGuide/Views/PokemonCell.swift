@@ -9,7 +9,7 @@ import SDWebImage
 import SnapKit
 import UIKit
 
-final class PokemonCell: UICollectionViewCell {
+final class PokemonCell: UICollectionViewCell, ReuseIdentifier {
     // MARK: - UI Elements
 
     private let imageView = UIImageView().apply {
@@ -29,12 +29,13 @@ final class PokemonCell: UICollectionViewCell {
     private let abilityLabel = UILabel().apply {
         $0.textColor = Constants.Colors.secondaryLabelColor.color
         $0.numberOfLines = 0
+        $0.layer.contentsGravity = .top
+        $0.clipsToBounds = true
         $0.font = .regularTextCustomFont()
     }
 
     // MARK: - Properties
 
-    static let reuseIdentifier = String(describing: PokemonCell.self)
     private let defaultNameLabelText = "Pokemon"
     private let defaultAbilityLabelText = "..."
     private let cornerRadius: CGFloat = 5
@@ -73,8 +74,8 @@ final class PokemonCell: UICollectionViewCell {
     // MARK: - Configuration
 
     func configure(with pokemon: DetailedPokemon) {
-        nameLabel.text = pokemon.name
-        abilityLabel.text = pokemon.abilities.first?.ability.name
+        nameLabel.text = pokemon.name?.capitalized
+        abilityLabel.text = pokemon.abilities.first?.ability.name.capitalized
         guard let imageUrl = pokemon.sprites?.frontDefault else { return }
         imageView.sd_setImage(with: URL(string: imageUrl))
     }
@@ -101,14 +102,14 @@ final class PokemonCell: UICollectionViewCell {
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(innerPadding)
-            $0.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
+            $0.trailing.equalTo(imageView.snp.leading)
             $0.bottom.equalTo(contentView.snp.centerY)
         }
 
         contentView.addSubview(abilityLabel)
         abilityLabel.snp.makeConstraints {
-            $0.leading.bottom.equalToSuperview().inset(innerPadding)
-            $0.trailing.equalTo(imageView.snp.leading).inset(innerPadding)
+            $0.leading.equalToSuperview().inset(innerPadding)
+            $0.trailing.equalTo(imageView.snp.leading)
             $0.top.equalTo(contentView.snp.centerY)
         }
     }

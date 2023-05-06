@@ -9,7 +9,7 @@ import Foundation
 import Moya
 
 enum PokemonAPI {
-    static let pokemonsListLimit = 20
+    static let pokemonsListLimit = 10
 
     case getPokemonsList
     case loadNextPokemons(fromUrl: String)

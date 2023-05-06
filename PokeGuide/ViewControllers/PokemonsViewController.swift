@@ -14,11 +14,13 @@ final class PokemonsViewController: UIViewController {
     // MARK: - UI Elements
 
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let loader = LoaderBarButtonItem()
 
     // MARK: - Properties
 
     private let viewModel: PokemonsViewModel
     private let appTitle = "Pokémon Guide"
+    private let navigationBarTitleFontSize: CGFloat = 24
     private let numberOfColumnsInLandscape: CGFloat = 4
     private let numberOfColumnsInPortrait: CGFloat = 2
     private let cellSizeRatio: CGFloat = 10 / 15
@@ -31,6 +33,15 @@ final class PokemonsViewController: UIViewController {
         super.viewDidLoad()
         configureCollectionView()
         navigationItem.title = appTitle
+        navigationItem.rightBarButtonItem = loader
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        guard let font = UIFont.boldTextCustomFont(size: navigationBarTitleFontSize) else { return }
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: Constants.Colors.mainAccentColor.color as Any
+        ]
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.titleTextAttributes = attributes
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -64,6 +75,8 @@ final class PokemonsViewController: UIViewController {
         configureCollectionViewLayout()
         bindViewModelToCollectionView()
         configurePagination()
+        bindLoaderBarButtonItem()
+        configureCellSelection()
     }
 
     private func configureCollectionViewLayout() {
@@ -98,6 +111,25 @@ final class PokemonsViewController: UIViewController {
             }
             .subscribe(onNext: { [weak self] _ in
                 self?.viewModel.loadMorePokemons()
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindLoaderBarButtonItem() {
+        viewModel.isFetchingDetailedPokemons.asObservable()
+            .bind { [weak self] isLoading in
+                isLoading ? self?.loader.startAnimating() : self?.loader.stopAnimating()
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func configureCellSelection() {
+        collectionView.rx.modelSelected(DetailedPokemon.self)
+            .subscribe(onNext: { [weak self] selectedPokemon in
+                guard let self = self else { return }
+                let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon)
+                let pokemonDetailViewController = DetailsViewController(viewModel: pokemonDetailViewModel)
+                self.navigationController?.pushViewController(pokemonDetailViewController, animated: true)
             })
             .disposed(by: disposeBag)
     }

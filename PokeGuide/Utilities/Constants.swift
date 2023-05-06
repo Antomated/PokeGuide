@@ -10,6 +10,7 @@ import UIKit
 enum Constants {
     enum StyleDefaults {
         static let innerPadding: CGFloat = 8
+        static let outerPadding: CGFloat = 16
     }
 
     enum Colors: String, CaseIterable {
@@ -27,6 +28,12 @@ enum Constants {
         case placeholder
 
         var image: UIImage? { UIImage(named: rawValue) }
+    }
+
+    enum Symbols: String {
+        case backArrow
+
+        var symbol: UIImage? { UIImage(named: rawValue) }
     }
 
     enum Fonts {
