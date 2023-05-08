@@ -2,17 +2,17 @@
 //  DetailsDataSource.swift
 //  PokeGuide
 //
-//  Created by Beavean on 06.05.2023.
+//  Created by Beavean on 08.05.2023.
 //
 
 import Foundation
 
 struct DetailsDataSource {
-    let key: String
-    let value: String
+    let leadingText: String
+    let trailingText: String
 
-    init(key: String, value: String = "") {
-        self.key = key
-        self.value = value
+    init(leadingText: String, trailingText: String = "") {
+        self.leadingText = leadingText
+        self.trailingText = trailingText
     }
 }

@@ -88,16 +88,15 @@ final class DetailsViewController: UIViewController {
 
     private func configureBackButton() {
         let imageSize: CGFloat = backButtonImageSize
-        let backButtonImage = Constants.Symbols.backArrow.symbol
+        let backButtonImage = Constants.Symbols.backArrow.symbol?.withRenderingMode(.alwaysTemplate)
         let resizedImage = backButtonImage?.scale(to: CGSize(width: imageSize, height: imageSize))
-        let backButtonImageView = UIImageView(image: resizedImage)
-        backButtonImageView.contentMode = .scaleAspectFill
-        backButtonImageView.tintColor = Constants.Colors.mainLabelColor.color
-        backButtonImageView.isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backButtonTapped))
-        backButtonImageView.addGestureRecognizer(tapGestureRecognizer)
-        let backBarButtonItem = UIBarButtonItem(customView: backButtonImageView)
+        let backBarButtonItem = UIBarButtonItem(image: resizedImage,
+                                                style: .plain,
+                                                target: self,
+                                                action: #selector(backButtonTapped))
+        backBarButtonItem.tintColor = Constants.Colors.mainAccentColor.color
         navigationItem.leftBarButtonItem = backBarButtonItem
+        navigationItem.leftBarButtonItem?.isEnabled = true
     }
 
     private func setupViews() {
@@ -110,41 +109,41 @@ final class DetailsViewController: UIViewController {
 
     private func setupConstraints() {
         updateConstraintsForOrientation(orientation: UIApplication.shared.statusBarOrientation)
-        nameLabel.snp.makeConstraints { make in
-            make.leading.top.equalToSuperview().inset(outerPadding)
-            make.height.equalTo(nameLabelHeight)
+        nameLabel.snp.makeConstraints {
+            $0.leading.top.equalToSuperview().inset(outerPadding)
+            $0.height.equalTo(nameLabelHeight)
         }
-        imageView.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.left.bottom.right.equalToSuperview()
+        imageView.snp.makeConstraints {
+            $0.top.equalTo(nameLabel.snp.bottom)
+            $0.left.bottom.right.equalToSuperview()
         }
     }
 
     private func updateConstraintsForOrientation(orientation: UIInterfaceOrientation) {
         let viewSafeArea = view.safeAreaLayoutGuide
-        nameImageViewContainer.snp.remakeConstraints { make in
-            make.left.equalTo(viewSafeArea.snp.left)
+        nameImageViewContainer.snp.remakeConstraints {
+            $0.left.equalTo(viewSafeArea.snp.left)
             if orientation.isLandscape {
-                make.top.equalTo(viewSafeArea.snp.top)
-                make.width.equalTo(viewSafeArea.layoutFrame.width / 2)
-                make.height.equalTo(viewSafeArea.layoutFrame.height)
+                $0.top.equalTo(viewSafeArea.snp.top)
+                $0.width.equalTo(viewSafeArea.layoutFrame.width / 2)
+                $0.height.equalTo(viewSafeArea.layoutFrame.height)
             } else {
-                make.top.equalTo(viewSafeArea.snp.top).offset(-UIApplication.shared.statusBarFrame.size.height)
-                make.width.equalTo(viewSafeArea.layoutFrame.width)
-                make.height.equalTo(viewSafeArea.layoutFrame.height / 2)
+                $0.top.equalTo(viewSafeArea.snp.top).offset(-UIApplication.shared.statusBarFrame.size.height)
+                $0.width.equalTo(viewSafeArea.layoutFrame.width)
+                $0.height.equalTo(viewSafeArea.layoutFrame.height / 2)
             }
         }
-        detailsViewContainer.snp.remakeConstraints { make in
+        detailsViewContainer.snp.remakeConstraints {
             if orientation.isLandscape {
-                make.top.equalTo(viewSafeArea.snp.top)
-                make.left.equalTo(nameImageViewContainer.snp.right).inset(outerPadding)
-                make.right.equalTo(viewSafeArea.snp.right).offset(-outerPadding)
-                make.height.equalTo(nameImageViewContainer.snp.height)
+                $0.top.equalTo(viewSafeArea.snp.top)
+                $0.left.equalTo(nameImageViewContainer.snp.right).inset(outerPadding)
+                $0.right.equalTo(viewSafeArea.snp.right).offset(-outerPadding)
+                $0.height.equalTo(nameImageViewContainer.snp.height)
             } else {
-                make.top.equalTo(nameImageViewContainer.snp.bottom)
-                make.left.equalTo(viewSafeArea.snp.left).inset(outerPadding)
-                make.right.equalTo(viewSafeArea.snp.right).offset(-outerPadding)
-                make.bottom.equalTo(viewSafeArea.snp.bottom)
+                $0.top.equalTo(nameImageViewContainer.snp.bottom)
+                $0.left.equalTo(viewSafeArea.snp.left).inset(outerPadding)
+                $0.right.equalTo(viewSafeArea.snp.right).offset(-outerPadding)
+                $0.bottom.equalTo(viewSafeArea.snp.bottom)
             }
         }
     }
@@ -152,20 +151,19 @@ final class DetailsViewController: UIViewController {
     private func bindViewModel() {
         viewModel.pokemon
             .subscribe(onNext: { [weak self] pokemon in
-                guard let self, let imageUrl = pokemon.sprites?.other?.officialArtwork.frontDefault else { return }
+                guard let self, let imageUrl = pokemon.officialArtworkImageUrl else { return }
                 self.imageView.sd_setImage(with: URL(string: imageUrl))
-                self.nameLabel.text = pokemon.name?.capitalized
+                self.nameLabel.text = pokemon.name.capitalized
             })
             .disposed(by: disposeBag)
     }
 
     private func embedTabStripViewController() {
         let tabStripVC = DetailsTabStripViewController(viewModel: viewModel.tabStripViewModel)
-
         addChild(tabStripVC)
         detailsViewContainer.addSubview(tabStripVC.view)
-        tabStripVC.view.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
+        tabStripVC.view.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
         }
         tabStripVC.didMove(toParent: self)
     }

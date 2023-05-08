@@ -73,10 +73,10 @@ final class PokemonCell: UICollectionViewCell, ReuseIdentifier {
 
     // MARK: - Configuration
 
-    func configure(with pokemon: DetailedPokemon) {
-        nameLabel.text = pokemon.name?.capitalized
-        abilityLabel.text = pokemon.abilities.first?.ability.name.capitalized
-        guard let imageUrl = pokemon.sprites?.frontDefault else { return }
+    func configure(with pokemon: PokemonObject) {
+        nameLabel.text = pokemon.name.capitalized
+        abilityLabel.text = pokemon.abilities.first?.name.capitalized
+        guard let imageUrl = pokemon.smallImageUrl else { return }
         imageView.sd_setImage(with: URL(string: imageUrl))
     }
 

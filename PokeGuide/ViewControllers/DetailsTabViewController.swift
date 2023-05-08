@@ -11,12 +11,18 @@ import UIKit
 import XLPagerTabStrip
 
 final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
+    // MARK: - UI Elements
+
+    private let tableView = UITableView()
+
+    // MARK: - Properties
+
     private let itemInfo: IndicatorInfo!
     private let viewModel: DetailsTabViewModel!
-
     private let disposeBag = DisposeBag()
-    private let tableView = UITableView()
     private let dataSourceRelay = BehaviorRelay<[DetailsDataSource]>(value: [])
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +33,8 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
     override func viewDidLayoutSubviews() {
         tableView.isScrollEnabled = tableView.contentSize.height >= tableView.bounds.size.height
     }
+
+    // MARK: - Initialization
 
     init(viewModel: DetailsTabViewModel!) {
         itemInfo = IndicatorInfo(title: viewModel.title)
@@ -39,6 +47,8 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Configuration
+
     private func setupTableView() {
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -46,8 +56,8 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
         tableView.showsHorizontalScrollIndicator = false
         tableView.allowsSelection = false
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
         }
         tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.reuseIdentifier)
     }
@@ -58,11 +68,12 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
             .map { $0 }
             .bind(to: tableView.rx.items(cellIdentifier: DetailsCell.reuseIdentifier,
                                          cellType: DetailsCell.self)) { _, item, cell in
-                cell.keyLabel.text = item.key
-                cell.valueLabel.text = item.value
+                cell.configure(leadingLabelText: item.leadingText, trailingLabelText: item.trailingText)
             }
             .disposed(by: disposeBag)
     }
+
+    // MARK: - IndicatorInfoProvider
 
     func indicatorInfo(for pagerTabStripController: PagerTabStripViewController) -> IndicatorInfo {
         itemInfo

@@ -9,11 +9,12 @@ import Foundation
 import RxSwift
 
 final class DetailsViewModel {
-    let pokemon: BehaviorSubject<DetailedPokemon>
+    let pokemon: BehaviorSubject<PokemonObject>
     let tabStripViewModel: DetailsTabStripViewModel
 
-    init(pokemon: DetailedPokemon) {
+    init(pokemon: PokemonObject) {
         self.pokemon = BehaviorSubject(value: pokemon)
         tabStripViewModel = DetailsTabStripViewModel(pokemonDetails: pokemon)
+        PokemonRealmManager.shared.savePokemon(pokemon: pokemon)
     }
 }

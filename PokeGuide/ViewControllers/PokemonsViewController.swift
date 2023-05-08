@@ -15,14 +15,19 @@ final class PokemonsViewController: UIViewController {
 
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let loader = LoaderBarButtonItem()
+    private let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil).apply {
+        $0.tintColor = Constants.Colors.mainAccentColor.color
+    }
 
     // MARK: - Properties
 
     private let viewModel: PokemonsViewModel
     private let appTitle = "Pokémon Guide"
     private let navigationBarTitleFontSize: CGFloat = 24
-    private let numberOfColumnsInLandscape: CGFloat = 4
     private let numberOfColumnsInPortrait: CGFloat = 2
+    private let numberOfColumnsInLandscape: CGFloat = 3
+    private let numberOfColumnsInPortraitIpad: CGFloat = 3
+    private let numberOfColumnsInLandscapeIpad: CGFloat = 6
     private let cellSizeRatio: CGFloat = 10 / 15
     private let rowsBeforePagination = PokemonAPI.pokemonsListLimit
     private let disposeBag = DisposeBag()
@@ -32,16 +37,7 @@ final class PokemonsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        navigationItem.title = appTitle
-        navigationItem.rightBarButtonItem = loader
-        navigationController?.navigationItem.largeTitleDisplayMode = .always
-        guard let font = UIFont.boldTextCustomFont(size: navigationBarTitleFontSize) else { return }
-        let attributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.font: font,
-            NSAttributedString.Key.foregroundColor: Constants.Colors.mainAccentColor.color as Any
-        ]
-        navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        navigationController?.navigationBar.titleTextAttributes = attributes
+        configureNavigationBar()
     }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -67,6 +63,20 @@ final class PokemonsViewController: UIViewController {
 
     // MARK: - Setup
 
+    private func configureNavigationBar() {
+        navigationItem.title = appTitle
+        navigationItem.leftBarButtonItem = reloadButton
+        navigationItem.rightBarButtonItem = loader
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
+        guard let font = UIFont.boldTextCustomFont(size: navigationBarTitleFontSize) else { return }
+        let attributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.foregroundColor: Constants.Colors.mainAccentColor.color as Any
+        ]
+        navigationController?.navigationBar.largeTitleTextAttributes = attributes
+        navigationController?.navigationBar.titleTextAttributes = attributes
+    }
+
     private func configureCollectionView() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
@@ -75,6 +85,7 @@ final class PokemonsViewController: UIViewController {
         configureCollectionViewLayout()
         bindViewModelToCollectionView()
         configurePagination()
+        bindReloadButton()
         bindLoaderBarButtonItem()
         configureCellSelection()
     }
@@ -115,6 +126,17 @@ final class PokemonsViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
+    private func bindReloadButton() {
+        viewModel.reloadButtonIsVisible
+            .bind(to: reloadButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+        reloadButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.viewModel.reloadData()
+            })
+            .disposed(by: disposeBag)
+    }
+
     private func bindLoaderBarButtonItem() {
         viewModel.isFetchingDetailedPokemons.asObservable()
             .bind { [weak self] isLoading in
@@ -124,9 +146,9 @@ final class PokemonsViewController: UIViewController {
     }
 
     private func configureCellSelection() {
-        collectionView.rx.modelSelected(DetailedPokemon.self)
+        collectionView.rx.modelSelected(PokemonObject.self)
             .subscribe(onNext: { [weak self] selectedPokemon in
-                guard let self = self else { return }
+                guard let self else { return }
                 let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon)
                 let pokemonDetailViewController = DetailsViewController(viewModel: pokemonDetailViewModel)
                 self.navigationController?.pushViewController(pokemonDetailViewController, animated: true)
@@ -144,7 +166,7 @@ final class PokemonsViewController: UIViewController {
 
     private func updateFlowLayout(for size: CGSize, flowLayout: UICollectionViewFlowLayout) {
         let isLandscape = size.width > size.height
-        let numberOfColumns: CGFloat = isLandscape ? numberOfColumnsInLandscape : numberOfColumnsInPortrait
+        let numberOfColumns = calculateNumberOfColumns()
         let spacing: CGFloat = Constants.StyleDefaults.innerPadding
         let itemWidth = (size.width - (numberOfColumns + 1) * spacing) / numberOfColumns
         let itemHeight = itemWidth * cellSizeRatio
@@ -152,6 +174,18 @@ final class PokemonsViewController: UIViewController {
         flowLayout.minimumLineSpacing = spacing
         flowLayout.minimumInteritemSpacing = spacing
         flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+    }
+
+    private func calculateNumberOfColumns() -> CGFloat {
+        let isLandscape = view.bounds.width > view.bounds.height
+        let isIpad = UIDevice.current.userInterfaceIdiom == .pad
+        let numberOfColumns: CGFloat
+        if isIpad {
+            numberOfColumns = isLandscape ? numberOfColumnsInLandscapeIpad : numberOfColumnsInPortraitIpad
+        } else {
+            numberOfColumns = isLandscape ? numberOfColumnsInLandscape : numberOfColumnsInPortrait
+        }
+        return numberOfColumns
     }
 }
 
@@ -161,8 +195,7 @@ extension PokemonsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let isLandscape = view.bounds.width > view.bounds.height
-        let numberOfColumns: CGFloat = isLandscape ? numberOfColumnsInLandscape : numberOfColumnsInPortrait
+        let numberOfColumns = calculateNumberOfColumns()
         let spacing: CGFloat = Constants.StyleDefaults.innerPadding
         let itemWidth = (view.bounds.width - (numberOfColumns + 1) * spacing) / numberOfColumns
         let itemHeight = itemWidth * cellSizeRatio

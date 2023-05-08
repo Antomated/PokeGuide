@@ -11,31 +11,33 @@ final class DetailsTabViewModel {
     private(set) var title: String
     private(set) var keyValueDataSource = [DetailsDataSource]()
 
-    init(pokemon: DetailedPokemon, tab: DetailsTab) {
+    init(pokemon: PokemonObject, tab: DetailsTab) {
         title = tab.rawValue.capitalized
         var numeration = 0
         switch tab {
         case .stats:
-            let sortedStats = pokemon.stats.sorted(by: { $0.stat.name < $1.stat.name })
+            let sortedStats = pokemon.stats.sorted(by: { $0.name < $1.name })
             keyValueDataSource = sortedStats.map { stat in
                 numeration += 1
-                return DetailsDataSource(key: "\(numeration). \(stat.stat.name.capitalized):",
-                                         value: "\(stat.baseStat)")
+                return DetailsDataSource(leadingText: "\(numeration). \(stat.name.capitalized):",
+                                         trailingText: "\(stat.parameter ?? 0)")
             }
         case .abilities:
-            let sortedAbilities = pokemon.abilities.sorted(by: { $0.slot < $1.slot })
+            let sortedAbilities = pokemon.abilities.sorted(by: { $0.slot ?? 0 < $1.slot ?? 0 })
             keyValueDataSource = sortedAbilities.map {
-                DetailsDataSource(key: "\($0.slot). \($0.ability.name.capitalized)")
+                numeration += 1
+                return DetailsDataSource(leadingText: "\($0.slot ?? numeration). \($0.name.capitalized)")
             }
         case .types:
-            let sortedTypes = pokemon.types.sorted(by: { $0.slot < $1.slot })
+            let sortedTypes = pokemon.types.sorted(by: { $0.slot ?? 0 < $1.slot ?? 0 })
             keyValueDataSource = sortedTypes.map {
-                DetailsDataSource(key: "\($0.slot). \($0.type.name.capitalized)")
+                numeration += 1
+                return DetailsDataSource(leadingText: "\($0.slot ?? numeration). \($0.name.capitalized)")
             }
         case .moves:
             keyValueDataSource = pokemon.moves.map { move in
                 numeration += 1
-                return DetailsDataSource(key: "\(numeration). \(move.move.name.capitalized)")
+                return DetailsDataSource(leadingText: "\(numeration). \(move.name.capitalized)")
             }
         }
     }
