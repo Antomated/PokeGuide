@@ -13,7 +13,6 @@ target 'PokeGuide' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'Moya/RxSwift'
-  pod 'Hero'
   pod 'XLPagerTabStrip'
   post_install do |installer|
     installer.pods_project.targets.each do |target|

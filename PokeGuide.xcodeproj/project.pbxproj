@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06BD5B4C5605349D41982D4E /* Pods_PokeGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CE509721C26B083F315D29A /* Pods_PokeGuide.framework */; };
 		082C56542A03DD9F0048D276 /* PokemonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56532A03DD9F0048D276 /* PokemonsViewModel.swift */; };
 		082C56562A04192D0048D276 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56552A04192D0048D276 /* DetailsViewController.swift */; };
 		082C56582A043D8B0048D276 /* LoaderBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56572A043D8B0048D276 /* LoaderBarButtonItem.swift */; };
@@ -49,6 +48,7 @@
 		089A16E12A099F5E00CF9ABF /* TypeElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089A16E02A099F5E00CF9ABF /* TypeElement.swift */; };
 		089BDFA52A0169030055E5A7 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089BDFA42A0169030055E5A7 /* UIViewController+ErrorAlert.swift */; };
 		089BDFA72A016A380055E5A7 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089BDFA62A016A380055E5A7 /* APIError.swift */; };
+		A793E3F6CCDBA73441749AD9 /* Pods_PokeGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48819DFF0E776F099B51B84B /* Pods_PokeGuide.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,9 +95,9 @@
 		089A16E02A099F5E00CF9ABF /* TypeElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeElement.swift; sourceTree = "<group>"; };
 		089BDFA42A0169030055E5A7 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		089BDFA62A016A380055E5A7 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
-		18EE635CB2B96A3FB3773AC0 /* Pods-PokeGuide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeGuide.release.xcconfig"; path = "Target Support Files/Pods-PokeGuide/Pods-PokeGuide.release.xcconfig"; sourceTree = "<group>"; };
-		2CE509721C26B083F315D29A /* Pods_PokeGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CD5781CBED6389051A692D3 /* Pods-PokeGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeGuide.debug.xcconfig"; path = "Target Support Files/Pods-PokeGuide/Pods-PokeGuide.debug.xcconfig"; sourceTree = "<group>"; };
+		48819DFF0E776F099B51B84B /* Pods_PokeGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A49A4AC18C41F8D7C4E603B /* Pods-PokeGuide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeGuide.release.xcconfig"; path = "Target Support Files/Pods-PokeGuide/Pods-PokeGuide.release.xcconfig"; sourceTree = "<group>"; };
+		B8D173586EAB55D76BCC513F /* Pods-PokeGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeGuide.debug.xcconfig"; path = "Target Support Files/Pods-PokeGuide/Pods-PokeGuide.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06BD5B4C5605349D41982D4E /* Pods_PokeGuide.framework in Frameworks */,
+				A793E3F6CCDBA73441749AD9 /* Pods_PokeGuide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +217,7 @@
 				08915C8C29F6A76B0040439D /* PokeGuide */,
 				08915C8B29F6A76B0040439D /* Products */,
 				3EA787EE8CDDC79BFBD5582F /* Pods */,
-				AC64CBC64956B1D55E7005EA /* Frameworks */,
+				A58A0738742A9CE2DE29C640 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -286,16 +286,16 @@
 		3EA787EE8CDDC79BFBD5582F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4CD5781CBED6389051A692D3 /* Pods-PokeGuide.debug.xcconfig */,
-				18EE635CB2B96A3FB3773AC0 /* Pods-PokeGuide.release.xcconfig */,
+				B8D173586EAB55D76BCC513F /* Pods-PokeGuide.debug.xcconfig */,
+				9A49A4AC18C41F8D7C4E603B /* Pods-PokeGuide.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		AC64CBC64956B1D55E7005EA /* Frameworks */ = {
+		A58A0738742A9CE2DE29C640 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2CE509721C26B083F315D29A /* Pods_PokeGuide.framework */,
+				48819DFF0E776F099B51B84B /* Pods_PokeGuide.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -307,12 +307,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08915C9E29F6A76D0040439D /* Build configuration list for PBXNativeTarget "PokeGuide" */;
 			buildPhases = (
-				A6603646CB64ABB559CBA19C /* [CP] Check Pods Manifest.lock */,
+				03F96638E259C125BC1F7497 /* [CP] Check Pods Manifest.lock */,
 				08915CA129F6B3B20040439D /* SwiftLint */,
 				08915C8629F6A76B0040439D /* Sources */,
 				08915C8729F6A76B0040439D /* Frameworks */,
 				08915C8829F6A76B0040439D /* Resources */,
-				784227A37A8C04C851701509 /* [CP] Embed Pods Frameworks */,
+				6F28F83D3432321BC97DA966 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -371,43 +371,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08915CA129F6B3B20040439D /* SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = SwiftLint;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
-		};
-		784227A37A8C04C851701509 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A6603646CB64ABB559CBA19C /* [CP] Check Pods Manifest.lock */ = {
+		03F96638E259C125BC1F7497 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -427,6 +391,42 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		08915CA129F6B3B20040439D /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		6F28F83D3432321BC97DA966 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PokeGuide/Pods-PokeGuide-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -606,7 +606,7 @@
 		};
 		08915C9F29F6A76D0040439D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4CD5781CBED6389051A692D3 /* Pods-PokeGuide.debug.xcconfig */;
+			baseConfigurationReference = B8D173586EAB55D76BCC513F /* Pods-PokeGuide.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -636,8 +636,6 @@
 					"\"CoreMedia\"",
 					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"Hero\"",
 					"-framework",
 					"\"ImageIO\"",
 					"-framework",
@@ -674,7 +672,7 @@
 		};
 		08915CA029F6A76D0040439D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18EE635CB2B96A3FB3773AC0 /* Pods-PokeGuide.release.xcconfig */;
+			baseConfigurationReference = 9A49A4AC18C41F8D7C4E603B /* Pods-PokeGuide.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -704,8 +702,6 @@
 					"\"CoreMedia\"",
 					"-framework",
 					"\"Foundation\"",
-					"-framework",
-					"\"Hero\"",
 					"-framework",
 					"\"ImageIO\"",
 					"-framework",

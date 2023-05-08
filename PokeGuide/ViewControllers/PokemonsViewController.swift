@@ -165,7 +165,6 @@ final class PokemonsViewController: UIViewController {
     // MARK: - Helpers
 
     private func updateFlowLayout(for size: CGSize, flowLayout: UICollectionViewFlowLayout) {
-        let isLandscape = size.width > size.height
         let numberOfColumns = calculateNumberOfColumns()
         let spacing: CGFloat = Constants.StyleDefaults.innerPadding
         let itemWidth = (size.width - (numberOfColumns + 1) * spacing) / numberOfColumns
