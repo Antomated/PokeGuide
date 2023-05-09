@@ -63,7 +63,7 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
     }
 
     private func bindViewModel() {
-        dataSourceRelay.accept(viewModel.keyValueDataSource)
+        dataSourceRelay.accept(viewModel.tableViewDataSource)
         dataSourceRelay
             .map { $0 }
             .bind(to: tableView.rx.items(cellIdentifier: DetailsCell.reuseIdentifier,
