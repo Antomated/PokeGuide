@@ -1,0 +1,61 @@
+PODS:
+  - Alamofire (5.6.4)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Realm (10.39.1):
+    - Realm/Headers (= 10.39.1)
+  - Realm/Headers (10.39.1)
+  - RealmSwift (10.39.1):
+    - Realm (= 10.39.1)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - SDWebImage (5.15.7):
+    - SDWebImage/Core (= 5.15.7)
+  - SDWebImage/Core (5.15.7)
+  - SnapKit (5.6.0)
+  - XLPagerTabStrip (9.0.0)
+
+DEPENDENCIES:
+  - Moya/RxSwift
+  - RealmSwift
+  - RxCocoa
+  - RxSwift
+  - SDWebImage
+  - SnapKit
+  - XLPagerTabStrip
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - Moya
+    - Realm
+    - RealmSwift
+    - RxCocoa
+    - RxRelay
+    - RxSwift
+    - SDWebImage
+    - SnapKit
+    - XLPagerTabStrip
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Realm: 1f3157edf145f4d9036765ab550c8cb18f62b700
+  RealmSwift: 8a69a1cb788cd5865966f49667b130567e07bceb
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  SDWebImage: 25bac438318faf37e35650619ebc288a9061d292
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  XLPagerTabStrip: 61c57fd61f611ee5f01ff1495ad6fbee8bf496c5
+
+PODFILE CHECKSUM: e3623fcef8674e2ce1ec4ff5a5dfebb33fd7d32b
+
+COCOAPODS: 1.12.1

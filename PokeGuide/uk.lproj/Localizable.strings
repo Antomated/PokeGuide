@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  PokeGuide
+
+  Created by Beavean on 11.05.2023.
+  
+*/
+
+"OK" = "Зрозуміло";
+"Pokémon Guide" = "Pokémon гайд";
+"Unknown error." = "Невідома помилка.";
+"Server error." = "Помилка сервера.";
+"Unknown error occurred." = "Сталася невідома помилка.";
+"Error" = "Помилка";
