@@ -13,13 +13,20 @@ enum APIError: Error {
     case customError(String)
 
     var errorMessage: String {
+        let errorMessage: String
         switch self {
         case .unknownError:
-            return "Unknown error."
+            errorMessage = "Unknown error."
         case .serverError:
-            return "Server error."
+            errorMessage = "Server error."
         case let .customError(message):
-            return message
+            if let range = message.range(of: ":") {
+                let messageStartIndex = message.index(after: range.lowerBound)
+                errorMessage = message[messageStartIndex...].trimmingCharacters(in: .whitespacesAndNewlines)
+            } else {
+                errorMessage = message
+            }
         }
+        return errorMessage
     }
 }
