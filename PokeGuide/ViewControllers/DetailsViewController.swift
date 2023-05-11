@@ -144,7 +144,7 @@ final class DetailsViewController: UIViewController {
                 $0.top.equalTo(nameImageViewContainer.snp.bottom)
                 $0.left.equalTo(viewSafeArea.snp.left).inset(outerPadding)
                 $0.right.equalTo(viewSafeArea.snp.right).offset(-outerPadding)
-                $0.bottom.equalTo(viewSafeArea.snp.bottom)
+                $0.bottom.equalTo(viewSafeArea.snp.bottom).inset(outerPadding)
             }
         }
     }

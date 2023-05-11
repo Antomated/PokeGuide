@@ -20,7 +20,7 @@ final class PokemonsViewController: UIViewController {
     // MARK: - Properties
 
     private let viewModel: PokemonsViewModel
-    private let appTitle = "Pokémon Guide"
+    private let appTitle = "Pokémon Guide".localized()
     private let navigationBarTitleFontSize: CGFloat = 24
     private let numberOfColumnsInPortrait: CGFloat = 2
     private let numberOfColumnsInLandscape: CGFloat = 3

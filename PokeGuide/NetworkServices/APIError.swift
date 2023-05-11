@@ -16,9 +16,9 @@ enum APIError: Error {
         let errorMessage: String
         switch self {
         case .unknownError:
-            errorMessage = "Unknown error."
+            errorMessage = "Unknown error.".localized()
         case .serverError:
-            errorMessage = "Server error."
+            errorMessage = "Server error.".localized()
         case let .customError(message):
             if let range = message.range(of: ":") {
                 let messageStartIndex = message.index(after: range.lowerBound)

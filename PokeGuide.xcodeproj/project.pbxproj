@@ -10,6 +10,8 @@
 		082C56542A03DD9F0048D276 /* PokemonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56532A03DD9F0048D276 /* PokemonsViewModel.swift */; };
 		082C56562A04192D0048D276 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56552A04192D0048D276 /* DetailsViewController.swift */; };
 		082C56582A043D8B0048D276 /* LoaderBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C56572A043D8B0048D276 /* LoaderBarButtonItem.swift */; };
+		08759EB12A0D0E79002CD02E /* String+Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08759EB02A0D0E79002CD02E /* String+Localized.swift */; };
+		08759EB22A0D0F13002CD02E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 08759EB42A0D0F13002CD02E /* Localizable.strings */; };
 		0880841329F7FE5C0003CDA6 /* PokemonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880841229F7FE5C0003CDA6 /* PokemonCell.swift */; };
 		0880841529F8005D0003CDA6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880841429F8005D0003CDA6 /* Constants.swift */; };
 		0880842329F8047F0003CDA6 /* UIFont+CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0880842229F8047F0003CDA6 /* UIFont+CustomFonts.swift */; };
@@ -55,6 +57,9 @@
 		082C56532A03DD9F0048D276 /* PokemonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonsViewModel.swift; sourceTree = "<group>"; };
 		082C56552A04192D0048D276 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		082C56572A043D8B0048D276 /* LoaderBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderBarButtonItem.swift; sourceTree = "<group>"; };
+		08759EB02A0D0E79002CD02E /* String+Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localized.swift"; sourceTree = "<group>"; };
+		08759EB32A0D0F13002CD02E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		08759EB52A0D0F38002CD02E /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0880841229F7FE5C0003CDA6 /* PokemonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonCell.swift; sourceTree = "<group>"; };
 		0880841429F8005D0003CDA6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0880842229F8047F0003CDA6 /* UIFont+CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+CustomFonts.swift"; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 			children = (
 				08915C9629F6A76D0040439D /* Assets.xcassets */,
 				0880842729F830980003CDA6 /* Fonts */,
+				08759EB42A0D0F13002CD02E /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -136,6 +142,7 @@
 				0880842229F8047F0003CDA6 /* UIFont+CustomFonts.swift */,
 				089BDFA42A0169030055E5A7 /* UIViewController+ErrorAlert.swift */,
 				089A16C22A06A64100CF9ABF /* UIImage+Scale.swift */,
+				08759EB02A0D0E79002CD02E /* String+Localized.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -345,6 +352,7 @@
 			knownRegions = (
 				en,
 				Base,
+				uk,
 			);
 			mainGroup = 08915C8129F6A76B0040439D;
 			productRefGroup = 08915C8B29F6A76B0040439D /* Products */;
@@ -361,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08759EB22A0D0F13002CD02E /* Localizable.strings in Resources */,
 				08915C9A29F6A76D0040439D /* LaunchScreen.storyboard in Resources */,
 				0880842A29F831A50003CDA6 /* Lato-Bold.ttf in Resources */,
 				08915C9729F6A76D0040439D /* Assets.xcassets in Resources */,
@@ -452,6 +461,7 @@
 				089A16D32A099EE400CF9ABF /* Ability.swift in Sources */,
 				089A16C32A06A64100CF9ABF /* UIImage+Scale.swift in Sources */,
 				08915C8E29F6A76B0040439D /* AppDelegate.swift in Sources */,
+				08759EB12A0D0E79002CD02E /* String+Localized.swift in Sources */,
 				0880841329F7FE5C0003CDA6 /* PokemonCell.swift in Sources */,
 				089A16C12A06761400CF9ABF /* PokemonDetailObject.swift in Sources */,
 				089A16D12A099EBC00CF9ABF /* DetailedPokemon.swift in Sources */,
@@ -479,6 +489,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		08759EB42A0D0F13002CD02E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08759EB32A0D0F13002CD02E /* en */,
+				08759EB52A0D0F38002CD02E /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		08915C9829F6A76D0040439D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -494,6 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -554,6 +574,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
