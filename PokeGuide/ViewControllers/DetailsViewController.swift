@@ -110,7 +110,8 @@ final class DetailsViewController: UIViewController {
     private func setupConstraints() {
         updateConstraintsForOrientation(orientation: UIApplication.shared.statusBarOrientation)
         nameLabel.snp.makeConstraints {
-            $0.leading.top.equalToSuperview().inset(outerPadding)
+            $0.leading.equalToSuperview().inset(outerPadding)
+            $0.top.equalToSuperview()
             $0.height.equalTo(nameLabelHeight)
         }
         imageView.snp.makeConstraints {

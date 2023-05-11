@@ -18,10 +18,10 @@ final class PokemonsViewModel {
     private(set) var nextPageUrl: String?
     private let pokemonAPIManager: PokemonAPIManager
     private let disposeBag = DisposeBag()
-    private var _detailedPokemons = BehaviorRelay<[PokemonObject]>(value: [])
+    private var detailedPokemonsRelay = BehaviorRelay<[PokemonObject]>(value: [])
     var errorRelay = PublishRelay<Error>()
     var detailedPokemons: Observable<[PokemonObject]> {
-        _detailedPokemons.asObservable()
+        detailedPokemonsRelay.asObservable()
     }
 
     // MARK: - Initialization
@@ -55,7 +55,7 @@ final class PokemonsViewModel {
     }
 
     func reloadData() {
-        _detailedPokemons.accept([])
+        detailedPokemonsRelay.accept([])
         loadInitialPokemons()
     }
 
@@ -101,17 +101,20 @@ final class PokemonsViewModel {
                 self?.isFetchingDetailedPokemons.accept(false)
             })
             .subscribe(onNext: { [weak self] pokemonObject in
-                var updatedDetailedPokemons = self?._detailedPokemons.value ?? []
+                var updatedDetailedPokemons = self?.detailedPokemonsRelay.value ?? []
                 updatedDetailedPokemons.append(pokemonObject)
-                self?._detailedPokemons.accept(updatedDetailedPokemons)
+                self?.detailedPokemonsRelay.accept(updatedDetailedPokemons)
             }, onError: { [weak self] error in
-                self?.errorRelay.accept(error)
+                guard let self else { return }
+                self.isFetchingDetailedPokemons.accept(false)
+                self.reloadButtonIsVisible.accept(true)
+                self.errorRelay.accept(error)
             })
             .disposed(by: disposeBag)
     }
 
     private func loadCachedPokemons() {
         let cachedPokemons = PokemonRealmManager.shared.getAllPokemons()
-        _detailedPokemons.accept(cachedPokemons)
+        detailedPokemonsRelay.accept(cachedPokemons)
     }
 }

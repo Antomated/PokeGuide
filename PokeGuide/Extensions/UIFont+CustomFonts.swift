@@ -17,7 +17,7 @@ extension UIFont {
         }
     }
 
-    static func boldTextCustomFont(size: CGFloat = 16) -> UIFont? {
+    static func boldTextCustomFont(size: CGFloat = 15) -> UIFont? {
         if let font = UIFont(name: Constants.Fonts.latoBold, size: size) {
             return font
         } else {

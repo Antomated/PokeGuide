@@ -20,10 +20,7 @@ extension UIViewController {
     }
 
     func showError(_ error: Error?) {
-        if let apiError = error as? APIError {
-            showInfoAlert(title: "Error", message: apiError.errorMessage)
-        } else {
-            showInfoAlert(title: "Error", message: "Unknown error occurred.")
-        }
+        let message = (error as? APIError)?.errorMessage ?? "Unknown error occurred."
+        showInfoAlert(title: "Error", message: message)
     }
 }

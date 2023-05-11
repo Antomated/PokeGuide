@@ -15,9 +15,7 @@ final class PokemonsViewController: UIViewController {
 
     private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let loader = LoaderBarButtonItem()
-    private let reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil).apply {
-        $0.tintColor = Constants.Colors.mainAccentColor.color
-    }
+    private var reloadButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil)
 
     // MARK: - Properties
 
@@ -29,6 +27,14 @@ final class PokemonsViewController: UIViewController {
     private let numberOfColumnsInPortraitIpad: CGFloat = 3
     private let numberOfColumnsInLandscapeIpad: CGFloat = 6
     private let cellSizeRatio: CGFloat = 10 / 15
+    private let innerSpacing = Constants.StyleDefaults.innerPadding
+    private lazy var cellSize = { [self] in
+        let numberOfColumns = calculateNumberOfColumns()
+        let itemWidth = (view.bounds.width - (numberOfColumns + 1) * innerSpacing) / numberOfColumns
+        let itemHeight = itemWidth * cellSizeRatio
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+
     private let rowsBeforePagination = PokemonAPI.pokemonsListLimit
     private let disposeBag = DisposeBag()
 
@@ -128,7 +134,10 @@ final class PokemonsViewController: UIViewController {
 
     private func bindReloadButton() {
         viewModel.reloadButtonIsVisible
-            .bind(to: reloadButton.rx.isEnabled)
+            .subscribe(onNext: { [weak self] isVisible in
+                self?.reloadButton.isEnabled = isVisible
+                self?.reloadButton.tintColor = isVisible ? Constants.Colors.mainAccentColor.color : UIColor.clear
+            })
             .disposed(by: disposeBag)
         reloadButton.rx.tap
             .subscribe(onNext: { [weak self] in
@@ -165,14 +174,13 @@ final class PokemonsViewController: UIViewController {
     // MARK: - Helpers
 
     private func updateFlowLayout(for size: CGSize, flowLayout: UICollectionViewFlowLayout) {
-        let numberOfColumns = calculateNumberOfColumns()
-        let spacing: CGFloat = Constants.StyleDefaults.innerPadding
-        let itemWidth = (size.width - (numberOfColumns + 1) * spacing) / numberOfColumns
-        let itemHeight = itemWidth * cellSizeRatio
-        flowLayout.itemSize = CGSize(width: itemWidth, height: itemHeight)
-        flowLayout.minimumLineSpacing = spacing
-        flowLayout.minimumInteritemSpacing = spacing
-        flowLayout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        flowLayout.itemSize = cellSize()
+        flowLayout.minimumLineSpacing = innerSpacing
+        flowLayout.minimumInteritemSpacing = innerSpacing
+        flowLayout.sectionInset = UIEdgeInsets(top: innerSpacing,
+                                               left: innerSpacing,
+                                               bottom: innerSpacing,
+                                               right: innerSpacing)
     }
 
     private func calculateNumberOfColumns() -> CGFloat {
@@ -194,29 +202,24 @@ extension PokemonsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfColumns = calculateNumberOfColumns()
-        let spacing: CGFloat = Constants.StyleDefaults.innerPadding
-        let itemWidth = (view.bounds.width - (numberOfColumns + 1) * spacing) / numberOfColumns
-        let itemHeight = itemWidth * cellSizeRatio
-        return CGSize(width: itemWidth, height: itemHeight)
+        cellSize()
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        Constants.StyleDefaults.innerPadding
+        innerSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        Constants.StyleDefaults.innerPadding
+        innerSpacing
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        let spacing = Constants.StyleDefaults.innerPadding
-        return UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        UIEdgeInsets(top: innerSpacing, left: innerSpacing, bottom: innerSpacing, right: innerSpacing)
     }
 }
