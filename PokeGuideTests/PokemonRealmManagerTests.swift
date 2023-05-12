@@ -5,9 +5,9 @@
 //  Created by Beavean on 11.05.2023.
 //
 
-import XCTest
-import RealmSwift
 @testable import PokeGuide
+import RealmSwift
+import XCTest
 
 final class PokemonRealmManagerTests: XCTestCase {
     private var pokemonRealmManager: PokemonRealmManager!
@@ -47,12 +47,12 @@ final class PokemonRealmManagerTests: XCTestCase {
                                                                         sprites: Sprites(frontDefault: "", other: nil),
                                                                         stats: [],
                                                                         types: [])),
-              let secondPokemon = PokemonObject(pokemon: DetailedPokemon(abilities: [],
-                                                                         moves: [],
-                                                                         name: "Bulbasaur",
-                                                                         sprites: Sprites(frontDefault: "", other: nil),
-                                                                         stats: [],
-                                                                         types: []))
+            let secondPokemon = PokemonObject(pokemon: DetailedPokemon(abilities: [],
+                                                                       moves: [],
+                                                                       name: "Bulbasaur",
+                                                                       sprites: Sprites(frontDefault: "", other: nil),
+                                                                       stats: [],
+                                                                       types: []))
         else {
             XCTFail("Error creating Pokemon Objects")
             return

@@ -34,7 +34,7 @@ final class PokemonRealmManager: PokemonRealmManaging {
     }
 
     func getPokemon(name: String) -> PokemonObject? {
-        return realm.object(ofType: PokemonObject.self, forPrimaryKey: name)
+        realm.object(ofType: PokemonObject.self, forPrimaryKey: name)
     }
 
     func getAllPokemons() -> [PokemonObject] {

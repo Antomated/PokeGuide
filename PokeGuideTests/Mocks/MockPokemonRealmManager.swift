@@ -5,20 +5,19 @@
 //  Created by Beavean on 11.05.2023.
 //
 
-import XCTest
 @testable import PokeGuide
+import XCTest
 
 final class MockPokemonRealmManager: PokemonRealmManaging {
     var mockPokemons = [PokemonObject]()
 
-    func savePokemon(pokemon: PokemonObject) {
-    }
+    func savePokemon(pokemon: PokemonObject) {}
 
     func getPokemon(name: String) -> PokemonObject? {
-        return nil
+        nil
     }
 
     func getAllPokemons() -> [PokemonObject] {
-        return mockPokemons
+        mockPokemons
     }
 }

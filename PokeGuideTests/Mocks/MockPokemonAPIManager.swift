@@ -5,9 +5,9 @@
 //  Created by Beavean on 11.05.2023.
 //
 
-import XCTest
-import RxSwift
 @testable import PokeGuide
+import RxSwift
+import XCTest
 
 final class MockPokemonAPIManager: PokemonAPIManager {
     var shouldReturnError = false

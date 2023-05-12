@@ -5,10 +5,10 @@
 //  Created by Beavean on 12.05.2023.
 //
 
-import XCTest
 import Moya
-import RxSwift
 @testable import PokeGuide
+import RxSwift
+import XCTest
 
 final class PokemonAPIManagerTests: XCTestCase {
     private var sut: PokemonAPIManager!
@@ -17,25 +17,25 @@ final class PokemonAPIManagerTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let sampleJSON = """
-                         {
-                         "count": 1,
-                         "next": "http://example.com/api/v2/pokemon?offset=1&limit=1",
-                         "previous": null,
-                         "results": [
-                         {
-                         "name": "bulbasaur",
-                         "url": "http://example.com/api/v2/pokemon/1/"
-                         }
-                         ]
-                         }
-                         """
+        {
+        "count": 1,
+        "next": "http://example.com/api/v2/pokemon?offset=1&limit=1",
+        "previous": null,
+        "results": [
+        {
+        "name": "bulbasaur",
+        "url": "http://example.com/api/v2/pokemon/1/"
+        }
+        ]
+        }
+        """
         let sampleData = sampleJSON.data(using: .utf8)!
         let endpointClosure = { (target: PokemonAPI) -> Endpoint in
-            return Endpoint(url: URL(target: target).absoluteString,
-                            sampleResponseClosure: { .networkResponse(200, sampleData) },
-                            method: target.method,
-                            task: target.task,
-                            httpHeaderFields: target.headers)
+            Endpoint(url: URL(target: target).absoluteString,
+                     sampleResponseClosure: { .networkResponse(200, sampleData) },
+                     method: target.method,
+                     task: target.task,
+                     httpHeaderFields: target.headers)
         }
         mockProvider = MoyaProvider<PokemonAPI>(endpointClosure: endpointClosure,
                                                 stubClosure: MoyaProvider.immediatelyStub)

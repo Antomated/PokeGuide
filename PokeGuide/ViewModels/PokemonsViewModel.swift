@@ -30,7 +30,7 @@ final class PokemonsViewModel {
     init(pokemonAPIManager: PokemonAPIManager = PokemonAPIManager(),
          realmManager: PokemonRealmManaging = PokemonRealmManager()) {
         self.pokemonAPIManager = pokemonAPIManager
-        self.pokemonRealmManager = realmManager
+        pokemonRealmManager = realmManager
         loadInitialPokemons()
     }
 
@@ -88,13 +88,13 @@ final class PokemonsViewModel {
             } else {
                 return self.pokemonAPIManager.fetchData(from: .getPokemon(fromUrl: basicPokemon.url),
                                                         ofType: DetailedPokemon.self)
-                .flatMap { detailedPokemon -> Observable<PokemonObject> in
-                    if let pokemonObject = PokemonObject(pokemon: detailedPokemon) {
-                        return Observable.just(pokemonObject)
-                    } else {
-                        return Observable.empty()
+                    .flatMap { detailedPokemon -> Observable<PokemonObject> in
+                        if let pokemonObject = PokemonObject(pokemon: detailedPokemon) {
+                            return Observable.just(pokemonObject)
+                        } else {
+                            return Observable.empty()
+                        }
                     }
-                }
             }
         }
         Observable.concat(observables)

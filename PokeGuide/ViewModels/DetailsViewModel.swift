@@ -15,7 +15,7 @@ final class DetailsViewModel {
 
     init(pokemon: PokemonObject, realmManager: PokemonRealmManaging) {
         self.pokemon = BehaviorSubject(value: pokemon)
-        self.pokemonRealmManager = realmManager
+        pokemonRealmManager = realmManager
         tabStripViewModel = DetailsTabStripViewModel(pokemonDetails: pokemon)
         pokemonRealmManager.savePokemon(pokemon: pokemon)
     }
