@@ -109,7 +109,7 @@ final class PokemonsViewController: UIViewController {
                                               cellType: PokemonCell.self)) { _, item, cell in
                 cell.configure(with: item)
             }
-            .disposed(by: disposeBag)
+                                              .disposed(by: disposeBag)
         viewModel.errorRelay
             .subscribe(onNext: { [weak self] error in
                 self?.showError(error)
@@ -158,7 +158,8 @@ final class PokemonsViewController: UIViewController {
         collectionView.rx.modelSelected(PokemonObject.self)
             .subscribe(onNext: { [weak self] selectedPokemon in
                 guard let self else { return }
-                let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon)
+                let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon,
+                                                              realmManager: self.viewModel.pokemonRealmManager)
                 let pokemonDetailViewController = DetailsViewController(viewModel: pokemonDetailViewModel)
                 self.navigationController?.pushViewController(pokemonDetailViewController, animated: true)
             })

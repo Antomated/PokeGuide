@@ -15,8 +15,9 @@ final class PokemonsViewModel {
     private(set) var isFetchingMoreData = false
     private(set) var isFetchingDetailedPokemons = BehaviorRelay<Bool>(value: false)
     private(set) var reloadButtonIsVisible = BehaviorRelay<Bool>(value: false)
-    private(set) var nextPageUrl: String?
+    var nextPageUrl: String?
     private let pokemonAPIManager: PokemonAPIManager
+    private(set) var pokemonRealmManager: PokemonRealmManaging
     private let disposeBag = DisposeBag()
     private var detailedPokemonsRelay = BehaviorRelay<[PokemonObject]>(value: [])
     var errorRelay = PublishRelay<Error>()
@@ -26,12 +27,32 @@ final class PokemonsViewModel {
 
     // MARK: - Initialization
 
-    init(pokemonAPIManager: PokemonAPIManager = PokemonAPIManager()) {
+    init(pokemonAPIManager: PokemonAPIManager = PokemonAPIManager(),
+         realmManager: PokemonRealmManaging = PokemonRealmManager()) {
         self.pokemonAPIManager = pokemonAPIManager
+        self.pokemonRealmManager = realmManager
         loadInitialPokemons()
     }
 
     // MARK: - Internal methods
+
+    func loadInitialPokemons() {
+        pokemonAPIManager
+            .fetchData(from: .getPokemonsList, ofType: PokemonList.self)
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
+            .subscribe(onNext: { [weak self] pokemonsList in
+                guard let self else { return }
+                self.nextPageUrl = pokemonsList.next
+                self.fetchAndAppendDetailedPokemons(from: pokemonsList.results)
+                self.reloadButtonIsVisible.accept(false)
+            }, onError: { [weak self] error in
+                guard let self else { return }
+                self.loadCachedPokemons()
+                self.errorRelay.accept(error)
+                self.reloadButtonIsVisible.accept(true)
+            })
+            .disposed(by: disposeBag)
+    }
 
     func loadMorePokemons() {
         guard !isFetchingMoreData, let nextPageUrl = nextPageUrl else { return }
@@ -59,41 +80,21 @@ final class PokemonsViewModel {
         loadInitialPokemons()
     }
 
-    // MARK: - Helpers
-
-    private func loadInitialPokemons() {
-        pokemonAPIManager
-            .fetchData(from: .getPokemonsList, ofType: PokemonList.self)
-            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInteractive))
-            .subscribe(onNext: { [weak self] pokemonsList in
-                guard let self else { return }
-                self.nextPageUrl = pokemonsList.next
-                self.fetchAndAppendDetailedPokemons(from: pokemonsList.results)
-                self.reloadButtonIsVisible.accept(false)
-            }, onError: { [weak self] error in
-                guard let self else { return }
-                self.loadCachedPokemons()
-                self.errorRelay.accept(error)
-                self.reloadButtonIsVisible.accept(true)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    private func fetchAndAppendDetailedPokemons(from basicPokemons: [BasicPokemon]) {
+    func fetchAndAppendDetailedPokemons(from basicPokemons: [BasicPokemon]) {
         isFetchingDetailedPokemons.accept(true)
         let observables = basicPokemons.compactMap { basicPokemon -> Observable<PokemonObject> in
-            if let savedPokemon = PokemonRealmManager.shared.getPokemon(name: basicPokemon.name) {
+            if let savedPokemon = pokemonRealmManager.getPokemon(name: basicPokemon.name) {
                 return Observable.just(savedPokemon)
             } else {
                 return self.pokemonAPIManager.fetchData(from: .getPokemon(fromUrl: basicPokemon.url),
                                                         ofType: DetailedPokemon.self)
-                    .flatMap { detailedPokemon -> Observable<PokemonObject> in
-                        if let pokemonObject = PokemonObject(pokemon: detailedPokemon) {
-                            return Observable.just(pokemonObject)
-                        } else {
-                            return Observable.empty()
-                        }
+                .flatMap { detailedPokemon -> Observable<PokemonObject> in
+                    if let pokemonObject = PokemonObject(pokemon: detailedPokemon) {
+                        return Observable.just(pokemonObject)
+                    } else {
+                        return Observable.empty()
                     }
+                }
             }
         }
         Observable.concat(observables)
@@ -113,8 +114,8 @@ final class PokemonsViewModel {
             .disposed(by: disposeBag)
     }
 
-    private func loadCachedPokemons() {
-        let cachedPokemons = PokemonRealmManager.shared.getAllPokemons()
+    func loadCachedPokemons() {
+        let cachedPokemons = pokemonRealmManager.getAllPokemons()
         detailedPokemonsRelay.accept(cachedPokemons)
     }
 }
