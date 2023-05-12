@@ -60,6 +60,7 @@ final class DetailsTabViewController: UIViewController, IndicatorInfoProvider {
             $0.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
         }
         tableView.register(DetailsCell.self, forCellReuseIdentifier: DetailsCell.reuseIdentifier)
+        tableView.accessibilityIdentifier = "detailsTabTableView"
     }
 
     private func bindViewModel() {

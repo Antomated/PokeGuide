@@ -61,6 +61,7 @@ final class DetailsViewController: UIViewController {
         setupConstraints()
         bindViewModel()
         embedTabStripViewController()
+        setAccessibilityIdentifiers()
     }
 
     override func viewDidLayoutSubviews() {
@@ -97,6 +98,7 @@ final class DetailsViewController: UIViewController {
         backBarButtonItem.tintColor = Constants.Colors.mainAccentColor.color
         navigationItem.leftBarButtonItem = backBarButtonItem
         navigationItem.leftBarButtonItem?.isEnabled = true
+        navigationItem.leftBarButtonItem?.accessibilityIdentifier = "backButton"
     }
 
     private func setupViews() {
@@ -167,5 +169,12 @@ final class DetailsViewController: UIViewController {
             $0.edges.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
         }
         tabStripVC.didMove(toParent: self)
+    }
+
+    private func setAccessibilityIdentifiers() {
+        nameLabel.accessibilityIdentifier = "detailsNameLabel"
+        imageView.accessibilityIdentifier = "detailsImageView"
+        nameImageViewContainer.accessibilityIdentifier = "detailsNameImageViewContainer"
+        detailsViewContainer.accessibilityIdentifier = "detailsViewContainer"
     }
 }

@@ -94,6 +94,7 @@ final class PokemonsViewController: UIViewController {
         bindReloadButton()
         bindLoaderBarButtonItem()
         configureCellSelection()
+        setAccessibilityIdentifiers()
     }
 
     private func configureCollectionViewLayout() {
@@ -109,7 +110,7 @@ final class PokemonsViewController: UIViewController {
                                               cellType: PokemonCell.self)) { _, item, cell in
                 cell.configure(with: item)
             }
-                                              .disposed(by: disposeBag)
+            .disposed(by: disposeBag)
         viewModel.errorRelay
             .subscribe(onNext: { [weak self] error in
                 self?.showError(error)
@@ -170,6 +171,12 @@ final class PokemonsViewController: UIViewController {
         let flowLayout = UICollectionViewFlowLayout()
         updateFlowLayout(for: view.bounds.size, flowLayout: flowLayout)
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
+    }
+
+    private func setAccessibilityIdentifiers() {
+        collectionView.accessibilityIdentifier = "pokemonsCollectionView"
+        loader.accessibilityIdentifier = "loader"
+        reloadButton.accessibilityIdentifier = "reloadButton"
     }
 
     // MARK: - Helpers

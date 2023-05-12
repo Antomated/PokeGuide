@@ -25,6 +25,7 @@ final class DetailsCell: UITableViewCell, ReuseIdentifier {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUp()
+        setAccessibilityIdentifiers()
     }
 
     @available(*, unavailable)
@@ -51,5 +52,10 @@ final class DetailsCell: UITableViewCell, ReuseIdentifier {
             $0.trailing.equalToSuperview().inset(Constants.StyleDefaults.innerPadding)
             $0.centerY.equalToSuperview()
         }
+    }
+
+    private func setAccessibilityIdentifiers() {
+        leadingLabel.accessibilityIdentifier = "detailsCellLeadingLabel"
+        trailingLabel.accessibilityIdentifier = "detailsCellTrailingLabel"
     }
 }
