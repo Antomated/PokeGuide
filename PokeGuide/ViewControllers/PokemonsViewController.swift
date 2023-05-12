@@ -50,7 +50,7 @@ final class PokemonsViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         coordinator.animate { _ in
-            self.updateFlowLayout(for: size, flowLayout: flowLayout)
+            self.updateFlowLayout(flowLayout: flowLayout)
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
@@ -169,7 +169,7 @@ final class PokemonsViewController: UIViewController {
 
     private func setupFlowLayout() {
         let flowLayout = UICollectionViewFlowLayout()
-        updateFlowLayout(for: view.bounds.size, flowLayout: flowLayout)
+        updateFlowLayout(flowLayout: flowLayout)
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
     }
 
@@ -181,7 +181,7 @@ final class PokemonsViewController: UIViewController {
 
     // MARK: - Helpers
 
-    private func updateFlowLayout(for size: CGSize, flowLayout: UICollectionViewFlowLayout) {
+    private func updateFlowLayout(flowLayout: UICollectionViewFlowLayout) {
         flowLayout.itemSize = cellSize()
         flowLayout.minimumLineSpacing = innerSpacing
         flowLayout.minimumInteritemSpacing = innerSpacing
