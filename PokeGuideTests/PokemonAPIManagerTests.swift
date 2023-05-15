@@ -13,23 +13,20 @@ import XCTest
 final class PokemonAPIManagerTests: XCTestCase {
     private var sut: PokemonAPIManager!
     private var mockProvider: MoyaProvider<PokemonAPI>!
+    private let disposeBag = DisposeBag()
 
     override func setUp() {
         super.setUp()
-        let sampleJSON = """
-        {
-        "count": 1,
-        "next": "http://example.com/api/v2/pokemon?offset=1&limit=1",
-        "previous": null,
-        "results": [
-        {
-        "name": "bulbasaur",
-        "url": "http://example.com/api/v2/pokemon/1/"
+        let bundle = Bundle(for: type(of: self))
+        guard let url = bundle.url(forResource: "StubbedResponse", withExtension: "json") else {
+            fatalError("StubbedResponse.json not found in bundle")
         }
-        ]
+        let sampleData: Data
+        do {
+            sampleData = try Data(contentsOf: url)
+        } catch {
+            fatalError("Failed to load StubbedResponse.json from bundle with error: \(error)")
         }
-        """
-        let sampleData = sampleJSON.data(using: .utf8)!
         let endpointClosure = { (target: PokemonAPI) -> Endpoint in
             Endpoint(url: URL(target: target).absoluteString,
                      sampleResponseClosure: { .networkResponse(200, sampleData) },
@@ -37,6 +34,7 @@ final class PokemonAPIManagerTests: XCTestCase {
                      task: target.task,
                      httpHeaderFields: target.headers)
         }
+
         mockProvider = MoyaProvider<PokemonAPI>(endpointClosure: endpointClosure,
                                                 stubClosure: MoyaProvider.immediatelyStub)
         sut = PokemonAPIManager(provider: mockProvider)
@@ -50,7 +48,7 @@ final class PokemonAPIManagerTests: XCTestCase {
 
     func testFetchDataSuccess() {
         let expectation = XCTestExpectation(description: "Fetch data success")
-        _ = sut.fetchData(from: .getPokemonsList, ofType: PokemonList.self)
+        sut.fetchData(from: .getPokemonsList, ofType: PokemonList.self)
             .subscribe(onNext: { result in
                 guard !result.results.isEmpty else {
                     XCTFail("Fetch data returned empty result")
@@ -60,6 +58,7 @@ final class PokemonAPIManagerTests: XCTestCase {
             }, onError: { error in
                 XCTFail("Fetch data should succeed, but it failed with error: \(error)")
             })
+            .disposed(by: disposeBag)
         wait(for: [expectation], timeout: 3.0)
     }
 
