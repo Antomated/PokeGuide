@@ -50,6 +50,7 @@ final class PokemonCell: UICollectionViewCell, ReuseIdentifier {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUp()
+        setAccessibilityIdentifiers()
     }
 
     @available(*, unavailable)
@@ -112,5 +113,11 @@ final class PokemonCell: UICollectionViewCell, ReuseIdentifier {
             $0.trailing.equalTo(imageView.snp.leading)
             $0.top.equalTo(contentView.snp.centerY)
         }
+    }
+
+    private func setAccessibilityIdentifiers() {
+        imageView.accessibilityIdentifier = "cellImageView"
+        nameLabel.accessibilityIdentifier = "cellNameLabel"
+        abilityLabel.accessibilityIdentifier = "cellAbilityLabel"
     }
 }

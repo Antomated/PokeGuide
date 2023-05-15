@@ -8,13 +8,19 @@
 import Foundation
 import RealmSwift
 
-final class PokemonRealmManager {
-    static let shared = PokemonRealmManager()
-    private let realm: Realm
+protocol PokemonRealmManaging {
+    func savePokemon(pokemon: PokemonObject)
+    func getPokemon(name: String) -> PokemonObject?
+    func getAllPokemons() -> [PokemonObject]
+}
 
-    private init() {
+final class PokemonRealmManager: PokemonRealmManaging {
+    private(set) var realm: Realm
+
+    init(realmConfiguration: Realm.Configuration = Realm.Configuration.defaultConfiguration) {
         do {
-            realm = try Realm()
+            let realm = try Realm(configuration: realmConfiguration)
+            self.realm = realm
         } catch {
             fatalError("Failed to initialize Realm: \(error)")
         }

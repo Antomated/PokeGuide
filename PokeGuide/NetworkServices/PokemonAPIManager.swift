@@ -10,14 +10,21 @@ import Moya
 import RxCocoa
 import RxSwift
 
-final class PokemonAPIManager {
-    private let provider = MoyaProvider<PokemonAPI>()
+protocol PokemonAPIManaging {
+    func fetchData<T: Decodable>(from request: PokemonAPI, ofType type: T.Type) -> Observable<T>
+}
+
+final class PokemonAPIManager: PokemonAPIManaging {
+    private let provider: MoyaProvider<PokemonAPI>
     private let concurrentRequestsQueue = DispatchQueue(label: "com.pokeguide.apiManager", qos: .userInitiated)
     private let disposeBag = DisposeBag()
 
+    init(provider: MoyaProvider<PokemonAPI> = MoyaProvider<PokemonAPI>()) {
+        self.provider = provider
+    }
+
     func fetchData<T: Decodable>(from request: PokemonAPI, ofType type: T.Type) -> Observable<T> {
         let decoder = JSONDecoder()
-
         return Observable.create { observer in
             self.concurrentRequestsQueue.async {
                 self.provider.rx.request(request)
@@ -34,7 +41,7 @@ final class PokemonAPIManager {
         }
     }
 
-    private func handleError(_ error: Error) -> APIError {
+    func handleError(_ error: Error) -> APIError {
         if let moyaError = error as? MoyaError {
             switch moyaError {
             case let .statusCode(response):

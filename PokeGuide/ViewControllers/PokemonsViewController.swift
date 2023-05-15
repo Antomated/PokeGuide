@@ -50,7 +50,7 @@ final class PokemonsViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         guard let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         coordinator.animate { _ in
-            self.updateFlowLayout(for: size, flowLayout: flowLayout)
+            self.updateFlowLayout(flowLayout: flowLayout)
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
@@ -94,6 +94,7 @@ final class PokemonsViewController: UIViewController {
         bindReloadButton()
         bindLoaderBarButtonItem()
         configureCellSelection()
+        setAccessibilityIdentifiers()
     }
 
     private func configureCollectionViewLayout() {
@@ -158,7 +159,8 @@ final class PokemonsViewController: UIViewController {
         collectionView.rx.modelSelected(PokemonObject.self)
             .subscribe(onNext: { [weak self] selectedPokemon in
                 guard let self else { return }
-                let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon)
+                let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon,
+                                                              realmManager: self.viewModel.pokemonRealmManager)
                 let pokemonDetailViewController = DetailsViewController(viewModel: pokemonDetailViewModel)
                 self.navigationController?.pushViewController(pokemonDetailViewController, animated: true)
             })
@@ -167,13 +169,19 @@ final class PokemonsViewController: UIViewController {
 
     private func setupFlowLayout() {
         let flowLayout = UICollectionViewFlowLayout()
-        updateFlowLayout(for: view.bounds.size, flowLayout: flowLayout)
+        updateFlowLayout(flowLayout: flowLayout)
         collectionView.setCollectionViewLayout(flowLayout, animated: false)
+    }
+
+    private func setAccessibilityIdentifiers() {
+        collectionView.accessibilityIdentifier = "pokemonsCollectionView"
+        loader.accessibilityIdentifier = "loader"
+        reloadButton.accessibilityIdentifier = "reloadButton"
     }
 
     // MARK: - Helpers
 
-    private func updateFlowLayout(for size: CGSize, flowLayout: UICollectionViewFlowLayout) {
+    private func updateFlowLayout(flowLayout: UICollectionViewFlowLayout) {
         flowLayout.itemSize = cellSize()
         flowLayout.minimumLineSpacing = innerSpacing
         flowLayout.minimumInteritemSpacing = innerSpacing
