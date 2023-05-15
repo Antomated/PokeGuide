@@ -16,7 +16,7 @@ final class PokemonsViewModel {
     private(set) var isFetchingDetailedPokemons = BehaviorRelay<Bool>(value: false)
     private(set) var reloadButtonIsVisible = BehaviorRelay<Bool>(value: false)
     var nextPageUrl: String?
-    private let pokemonAPIManager: PokemonAPIManager
+    private let pokemonAPIManager: PokemonAPIManaging
     private(set) var pokemonRealmManager: PokemonRealmManaging
     private let disposeBag = DisposeBag()
     private var detailedPokemonsRelay = BehaviorRelay<[PokemonObject]>(value: [])
@@ -27,7 +27,7 @@ final class PokemonsViewModel {
 
     // MARK: - Initialization
 
-    init(pokemonAPIManager: PokemonAPIManager = PokemonAPIManager(),
+    init(pokemonAPIManager: PokemonAPIManaging = PokemonAPIManager(),
          realmManager: PokemonRealmManaging = PokemonRealmManager()) {
         self.pokemonAPIManager = pokemonAPIManager
         pokemonRealmManager = realmManager

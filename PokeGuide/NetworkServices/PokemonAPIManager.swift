@@ -10,7 +10,11 @@ import Moya
 import RxCocoa
 import RxSwift
 
-class PokemonAPIManager {
+protocol PokemonAPIManaging {
+    func fetchData<T: Decodable>(from request: PokemonAPI, ofType type: T.Type) -> Observable<T>
+}
+
+final class PokemonAPIManager: PokemonAPIManaging {
     private let provider: MoyaProvider<PokemonAPI>
     private let concurrentRequestsQueue = DispatchQueue(label: "com.pokeguide.apiManager", qos: .userInitiated)
     private let disposeBag = DisposeBag()
