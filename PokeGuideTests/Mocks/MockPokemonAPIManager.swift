@@ -10,10 +10,10 @@ import RxSwift
 import XCTest
 
 final class MockPokemonAPIManager: PokemonAPIManaging {
-    var shouldReturnError = false
+    var shouldFail = false
 
     func fetchData<T>(from endpoint: PokemonAPI, ofType type: T.Type) -> Observable<T> where T: Decodable {
-        if shouldReturnError {
+        if shouldFail {
             return Observable.error(NSError(domain: "", code: -1, userInfo: nil))
         }
         guard type == PokemonList.self else { return Observable.empty() }

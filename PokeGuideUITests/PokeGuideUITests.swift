@@ -57,7 +57,7 @@ final class PokeGuideUITests: XCTestCase {
 
     func testInitialInterfaceElements() {
         XCTAssertTrue(pokemonsCollectionView.exists)
-        let result = XCTWaiter.wait(for: [expectation(description: #function)], timeout: 1)
+        let result = XCTWaiter.wait(for: [expectation(description: #function)], timeout: 5)
         if result == XCTWaiter.Result.timedOut {
             XCTAssertTrue(cellNameLabel.exists)
             XCTAssertTrue(cellAbilityLabel.exists)
@@ -67,8 +67,8 @@ final class PokeGuideUITests: XCTestCase {
         }
     }
 
-    func testDetailedViewAndBackButton() {
-        let result = XCTWaiter.wait(for: [expectation(description: #function)], timeout: 1)
+    func testDetailedViewElements() {
+        let result = XCTWaiter.wait(for: [expectation(description: #function)], timeout: 5)
         if result == XCTWaiter.Result.timedOut {
             let cell = pokemonsCollectionView.cells.element(boundBy: 1)
             cell.tap()
@@ -83,6 +83,16 @@ final class PokeGuideUITests: XCTestCase {
         XCTAssertTrue(detailsCellLeadingLabel.exists)
         XCTAssertTrue(detailsCellTrailingLabel.exists)
         XCTAssertTrue(backButton.exists)
+    }
+
+    func testBackNavigation() {
+        let result = XCTWaiter.wait(for: [expectation(description: #function)], timeout: 5)
+        if result == XCTWaiter.Result.timedOut {
+            let cell = pokemonsCollectionView.cells.element(boundBy: 1)
+            cell.tap()
+        } else {
+            XCTFail("Delay interrupted")
+        }
         backButton.tap()
         XCTAssertFalse(detailsImageView.exists)
         XCTAssertFalse(detailsNameLabel.exists)

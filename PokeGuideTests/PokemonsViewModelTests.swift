@@ -43,7 +43,7 @@ final class PokemonsViewModelTests: XCTestCase {
     }
 
     func testLoadInitialPokemonsFailure() {
-        mockAPIManager.shouldReturnError = true
+        mockAPIManager.shouldFail = true
         let expectation = XCTestExpectation(description: #function)
         sut.errorRelay.subscribe(onNext: { _ in
             expectation.fulfill()
@@ -66,7 +66,7 @@ final class PokemonsViewModelTests: XCTestCase {
     }
 
     func testLoadMorePokemonsFailure() {
-        mockAPIManager.shouldReturnError = true
+        mockAPIManager.shouldFail = true
         sut.nextPageUrl = "test"
         let expectation = XCTestExpectation(description: #function)
         sut.errorRelay.subscribe(onNext: { _ in
@@ -90,7 +90,7 @@ final class PokemonsViewModelTests: XCTestCase {
     }
 
     func testReloadFailure() {
-        mockAPIManager.shouldReturnError = true
+        mockAPIManager.shouldFail = true
         let expectation = XCTestExpectation(description: #function)
         sut.errorRelay.subscribe(onNext: { _ in
             expectation.fulfill()
@@ -114,7 +114,7 @@ final class PokemonsViewModelTests: XCTestCase {
     }
 
     func testPokemonDetailsFetchFailure() {
-        mockAPIManager.shouldReturnError = true
+        mockAPIManager.shouldFail = true
         let basicPokemon = BasicPokemon(name: "test", url: "test")
         let expectation = XCTestExpectation(description: #function)
         sut.errorRelay.subscribe(onNext: { _ in
