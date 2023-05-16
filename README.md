@@ -39,11 +39,9 @@ This application displays all Pokémons and allows to check their stats/abilitie
 | :----------: | :---------: |
 <img src = "https://github.com/Beavean/PokeGuide/assets/105853157/194c6f40-e512-4388-b949-40a4b877fcb1" width = 400> | <img src = "https://github.com/Beavean/PokeGuide/assets/105853157/bbe8bdb1-6604-44f6-b05e-66d1aea71b44" width = 400> |
 
-- Iphone 14 with Dark Appearance in Landscape
-
 | Pokemons screen |
 | :----------: |
-<img src = "https://github.com/Beavean/PokeGuide/assets/105853157/fbf7ca7c-c418-4eec-8fd0-053968679a8f" width = 800> |
+<img src = "https://github.com/Beavean/PokeGuide/assets/105853157/31fe1513-078c-4a95-91b2-8e25231aa52e" width = 800> |
 
 | Pokemon details screen |
 | :---------: |
