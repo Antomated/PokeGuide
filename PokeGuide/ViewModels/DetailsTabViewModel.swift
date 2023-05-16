@@ -11,7 +11,7 @@ final class DetailsTabViewModel {
     private(set) var title: String
     private(set) var tableViewDataSource = [DetailsDataSource]()
 
-    init(pokemon: PokemonObject, tab: DetailsTab) {
+    init(pokemon: Pokemon, tab: DetailsTab) {
         title = tab.rawValue.capitalized
         var numeration = 0
         switch tab {

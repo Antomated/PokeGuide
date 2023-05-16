@@ -156,7 +156,7 @@ final class PokemonsViewController: UIViewController {
     }
 
     private func configureCellSelection() {
-        collectionView.rx.modelSelected(PokemonObject.self)
+        collectionView.rx.modelSelected(Pokemon.self)
             .subscribe(onNext: { [weak self] selectedPokemon in
                 guard let self else { return }
                 let pokemonDetailViewModel = DetailsViewModel(pokemon: selectedPokemon,

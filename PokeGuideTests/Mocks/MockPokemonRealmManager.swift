@@ -9,15 +9,15 @@
 import XCTest
 
 final class MockPokemonRealmManager: PokemonRealmManaging {
-    var mockPokemons = [PokemonObject]()
+    var mockPokemons = [Pokemon]()
 
-    func savePokemon(pokemon: PokemonObject) {}
+    func savePokemon(pokemon: Pokemon) {}
 
-    func getPokemon(name: String) -> PokemonObject? {
+    func getPokemon(name: String) -> Pokemon? {
         nil
     }
 
-    func getAllPokemons() -> [PokemonObject] {
+    func getAllPokemons() -> [Pokemon] {
         mockPokemons
     }
 }

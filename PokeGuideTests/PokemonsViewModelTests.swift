@@ -125,7 +125,7 @@ final class PokemonsViewModelTests: XCTestCase {
     }
 
     func testLoadCachedPokemons() {
-        let testPokemons = [PokemonObject(), PokemonObject()]
+        let testPokemons = [Pokemon(), Pokemon()]
         let expectation = XCTestExpectation(description: #function)
         mockRealmManager.mockPokemons = testPokemons
         sut.loadCachedPokemons()

@@ -9,9 +9,9 @@ import Foundation
 import RealmSwift
 
 protocol PokemonRealmManaging {
-    func savePokemon(pokemon: PokemonObject)
-    func getPokemon(name: String) -> PokemonObject?
-    func getAllPokemons() -> [PokemonObject]
+    func savePokemon(pokemon: Pokemon)
+    func getPokemon(name: String) -> Pokemon?
+    func getAllPokemons() -> [Pokemon]
 }
 
 final class PokemonRealmManager: PokemonRealmManaging {
@@ -26,19 +26,19 @@ final class PokemonRealmManager: PokemonRealmManaging {
         }
     }
 
-    func savePokemon(pokemon: PokemonObject) {
-        guard realm.object(ofType: PokemonObject.self, forPrimaryKey: pokemon.name) == nil else { return }
+    func savePokemon(pokemon: Pokemon) {
+        guard realm.object(ofType: Pokemon.self, forPrimaryKey: pokemon.name) == nil else { return }
         try? realm.write {
             realm.add(pokemon, update: .modified)
         }
     }
 
-    func getPokemon(name: String) -> PokemonObject? {
-        realm.object(ofType: PokemonObject.self, forPrimaryKey: name)
+    func getPokemon(name: String) -> Pokemon? {
+        realm.object(ofType: Pokemon.self, forPrimaryKey: name)
     }
 
-    func getAllPokemons() -> [PokemonObject] {
-        let pokemons = realm.objects(PokemonObject.self)
+    func getAllPokemons() -> [Pokemon] {
+        let pokemons = realm.objects(Pokemon.self)
         return Array(pokemons)
     }
 }

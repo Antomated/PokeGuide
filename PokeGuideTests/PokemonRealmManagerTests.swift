@@ -24,7 +24,7 @@ final class PokemonRealmManagerTests: XCTestCase {
     }
 
     func testSaveAndGetPokemon() {
-        guard let pokemon = PokemonObject(pokemon: DetailedPokemon(abilities: [],
+        guard let pokemon = Pokemon(pokemon: DetailedPokemon(abilities: [],
                                                                    moves: [],
                                                                    name: "Pikachu",
                                                                    sprites: Sprites(frontDefault: "", other: nil),
@@ -41,13 +41,13 @@ final class PokemonRealmManagerTests: XCTestCase {
     }
 
     func testGetAllPokemons() {
-        guard let firstPokemon = PokemonObject(pokemon: DetailedPokemon(abilities: [],
+        guard let firstPokemon = Pokemon(pokemon: DetailedPokemon(abilities: [],
                                                                         moves: [],
                                                                         name: "Charmander",
                                                                         sprites: Sprites(frontDefault: "", other: nil),
                                                                         stats: [],
                                                                         types: [])),
-            let secondPokemon = PokemonObject(pokemon: DetailedPokemon(abilities: [],
+            let secondPokemon = Pokemon(pokemon: DetailedPokemon(abilities: [],
                                                                        moves: [],
                                                                        name: "Bulbasaur",
                                                                        sprites: Sprites(frontDefault: "", other: nil),

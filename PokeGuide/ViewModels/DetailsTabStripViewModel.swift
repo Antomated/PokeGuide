@@ -11,7 +11,7 @@ import RxCocoa
 final class DetailsTabStripViewModel {
     let tabViewModels = BehaviorRelay<[DetailsTabViewModel]>(value: [])
 
-    init(pokemonDetails: PokemonObject) {
+    init(pokemonDetails: Pokemon) {
         var detailsTabViewModels = [DetailsTabViewModel]()
         DetailsTab.allCases.forEach { tab in
             detailsTabViewModels.append(DetailsTabViewModel(pokemon: pokemonDetails, tab: tab))

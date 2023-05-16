@@ -1,5 +1,5 @@
 //
-//  PokemonObject.swift
+//  Pokemon.swift
 //  PokeGuide
 //
 //  Created by Beavean on 08.05.2023.
@@ -8,14 +8,14 @@
 import Realm
 import RealmSwift
 
-final class PokemonObject: Object {
+final class Pokemon: Object {
     @Persisted var name: String = ""
     @Persisted var smallImageUrl: String?
     @Persisted var officialArtworkImageUrl: String?
-    @Persisted var stats: List<PokemonDetailObject>
-    @Persisted var abilities: List<PokemonDetailObject>
-    @Persisted var types: List<PokemonDetailObject>
-    @Persisted var moves: List<PokemonDetailObject>
+    @Persisted var stats: List<PokemonDetails>
+    @Persisted var abilities: List<PokemonDetails>
+    @Persisted var types: List<PokemonDetails>
+    @Persisted var moves: List<PokemonDetails>
 
     override static func primaryKey() -> String? {
         "name"
@@ -31,16 +31,16 @@ final class PokemonObject: Object {
         self.smallImageUrl = smallImageUrl
         officialArtworkImageUrl = pokemon.sprites?.other?.officialArtwork.frontDefault
         pokemon.stats.forEach { stat in
-            self.stats.append(PokemonDetailObject(name: stat.stat.name, parameter: stat.baseStat))
+            self.stats.append(PokemonDetails(name: stat.stat.name, parameter: stat.baseStat))
         }
         pokemon.abilities.forEach { ability in
-            self.abilities.append(PokemonDetailObject(name: ability.ability.name, slot: ability.slot))
+            self.abilities.append(PokemonDetails(name: ability.ability.name, slot: ability.slot))
         }
         pokemon.types.forEach { type in
-            self.types.append(PokemonDetailObject(name: type.type.name, slot: type.slot))
+            self.types.append(PokemonDetails(name: type.type.name, slot: type.slot))
         }
         pokemon.moves.forEach { move in
-            self.moves.append(PokemonDetailObject(name: move.move.name))
+            self.moves.append(PokemonDetails(name: move.move.name))
         }
     }
 }

@@ -19,9 +19,9 @@ final class PokemonsViewModel {
     private let pokemonAPIManager: PokemonAPIManaging
     private(set) var pokemonRealmManager: PokemonRealmManaging
     private let disposeBag = DisposeBag()
-    private var detailedPokemonsRelay = BehaviorRelay<[PokemonObject]>(value: [])
+    private var detailedPokemonsRelay = BehaviorRelay<[Pokemon]>(value: [])
     var errorRelay = PublishRelay<Error>()
-    var detailedPokemons: Observable<[PokemonObject]> {
+    var detailedPokemons: Observable<[Pokemon]> {
         detailedPokemonsRelay.asObservable()
     }
 
@@ -82,14 +82,14 @@ final class PokemonsViewModel {
 
     func fetchAndAppendDetailedPokemons(from basicPokemons: [BasicPokemon]) {
         isFetchingDetailedPokemons.accept(true)
-        let observables = basicPokemons.compactMap { basicPokemon -> Observable<PokemonObject> in
+        let observables = basicPokemons.compactMap { basicPokemon -> Observable<Pokemon> in
             if let savedPokemon = pokemonRealmManager.getPokemon(name: basicPokemon.name) {
                 return Observable.just(savedPokemon)
             } else {
                 return self.pokemonAPIManager.fetchData(from: .getPokemon(fromUrl: basicPokemon.url),
                                                         ofType: DetailedPokemon.self)
-                    .flatMap { detailedPokemon -> Observable<PokemonObject> in
-                        if let pokemonObject = PokemonObject(pokemon: detailedPokemon) {
+                    .flatMap { detailedPokemon -> Observable<Pokemon> in
+                        if let pokemonObject = Pokemon(pokemon: detailedPokemon) {
                             return Observable.just(pokemonObject)
                         } else {
                             return Observable.empty()

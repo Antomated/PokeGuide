@@ -1,5 +1,5 @@
 //
-//  PokemonDetailObject.swift
+//  PokemonDetails.swift
 //  PokeGuide
 //
 //  Created by Beavean on 06.05.2023.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class PokemonDetailObject: Object {
+final class PokemonDetails: Object {
     @Persisted var name: String = ""
     @Persisted var slot: Int?
     @Persisted var parameter: Int?

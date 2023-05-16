@@ -74,7 +74,7 @@ final class PokemonCell: UICollectionViewCell, ReuseIdentifier {
 
     // MARK: - Configuration
 
-    func configure(with pokemon: PokemonObject) {
+    func configure(with pokemon: Pokemon) {
         nameLabel.text = pokemon.name.capitalized
         abilityLabel.text = pokemon.abilities.first?.name.capitalized
         guard let imageUrl = pokemon.smallImageUrl else { return }
