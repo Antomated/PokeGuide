@@ -15,10 +15,6 @@ target 'PokeGuide' do
   pod 'Moya/RxSwift'
   pod 'XLPagerTabStrip'
 
-  target 'PokeGuideTests' do
-    pod 'RxSwift'
-  end
-
   post_install do |installer|
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
