@@ -1,5 +1,7 @@
 # PokeGuide
-This application displays all Pokémons and allows to check their stats/abilities/moves.
+This application displays all Pokémons and allows users to check their stats, abilities, and moves. 
+
+> **Disclaimer:** The primary goal of this project was to quickly explore and test `RxSwift`, with a particular focus on integrating `RxCocoa` with `UIKit` using the MVVM architecture pattern.
 
 # Features:
 - Adapts to various screen sizes and resolutions using responsive design
