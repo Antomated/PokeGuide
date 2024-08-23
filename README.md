@@ -1,7 +1,5 @@
 # PokeGuide
-This application displays all Pokémons and allows users to check their stats, abilities, and moves. 
-
-> **Disclaimer:** The primary goal of this project was to quickly explore and test `RxSwift`, with a particular focus on integrating `RxCocoa` with `UIKit` using the MVVM architecture pattern.
+The primary goal of this project was to quickly explore and test `RxSwift`, with a particular focus on integrating `RxCocoa` with `UIKit` using the MVVM architecture pattern.
 
 # Features:
 - Adapts to various screen sizes and resolutions using responsive design
@@ -53,10 +51,6 @@ This application displays all Pokémons and allows users to check their stats, a
 
 # Screen snippets:
 
-| iPad mini (6th generation) - Dark Appearance / Landscape |
-| :----------: |
-| <img src="https://github.com/user-attachments/assets/b40c991a-dd38-4d72-8844-4a75a4f3d055" width = 800> |
-
-| iPhone 14 Pro Max - Light Appearance / Portrait | iPhone SE (3rd generation) - Dark Appearance / Portrait  |
+| iPad mini (6th generation) - Dark Appearance / Landscape  | iPhone SE (3rd generation) - Dark Appearance / Portrait  |
 | :----------: | :---------: |
-<img src = "https://github.com/user-attachments/assets/d79e5e6a-2d2e-404c-a1b1-7010f58ec022" width = 400> | <img src = "https://github.com/user-attachments/assets/6a47ee11-0f9d-4f48-a4f9-b23796f72359" width = 400> |
+<img src = "https://github.com/user-attachments/assets/b40c991a-dd38-4d72-8844-4a75a4f3d055" width = 600> | <img src = "https://github.com/user-attachments/assets/6a47ee11-0f9d-4f48-a4f9-b23796f72359" width = 200> |
